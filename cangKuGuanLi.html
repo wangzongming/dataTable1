@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>仓库管理看板</title>
+        <link rel="stylesheet" href="./style/cangKuGuanLi.css">
+    </head>
+
+    <body>
+
+        <div class="page">
+            <div class="header boxSizing">
+                <div class="time"></div>
+            </div>
+            <div class="body boxSizing clearfloat">
+                <div class="block boxSizing block-one">
+                    <div class="titImg boxSizing"><img src="./imgs/title1.png" alt=""></div>
+                    <div class="eImg wuLiaoAnQuanKuChunYuJing"></div>
+                </div>
+                <div class="block boxSizing block-two" style="margin-top: 0px;padding:0px;">
+                    <div class="eImg wuLiaoKuLingTongJi"></div>
+                    <div class="bg"></div>
+                </div>
+                <div class="block boxSizing block-three">
+                    <div class="titImg boxSizing"><img src="./imgs/title2.png" alt=""></div>
+                    <div class="eImg cangKuChuCunNengLiTongJi"></div>
+                </div>
+                <div class="block boxSizing block-four" style="padding:12px 3px">
+                    <div class="eImg ruKuRenWuQingDan">
+                        <div class="titImg boxSizing"><img src="./imgs/title3.png" alt=""></div>
+                        <div class="boxSizing" style="height: 8px;"></div>
+                        <table class="table" cellpadding="0" cellspacing="0">
+                            <tr class="theader">
+                                <th> 采购订单 </th>
+                                <th style="padding-left: 16px;"> 物料名称 </th>
+                                <th> 到货数量 </th>
+                                <th> 未验收数量 </th>
+                            </tr>
+                        </table>
+                        <div class="hr"></div>
+                        <div class="table-content srcollstyle" id="ruKuRenWuQingDanContent">
+                            <table class="table content boxSizing" cellpadding="0" cellspacing="0" style="padding:0px 18px;">
+                                <!-- <tr class="row">
+                                    <td class="blue"> HOAHDJHKJG </td>
+                                    <td class="white"> 物料A </td>
+                                    <td class="qing"> 100 </td>
+                                    <td class="red"> 10 </td>
+                                </tr>  -->
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="block boxSizing  block-five" style="padding:12px 3px">
+                    <div class="eImg chuKuRenWuQingDan">
+                        <div class="titImg boxSizing"><img src="./imgs/title4.png" alt=""></div>
+                        <div class="boxSizing" style="height: 8px;"></div>
+                        <table class="table" cellpadding="0" cellspacing="0">
+                            <tr class="theader">
+                                <th> 生产订单 </th>
+                                <th style="padding-left: 16px;"> 出库工序 </th>
+                                <th> 物料名称 </th>
+                                <th> 未验收数量 </th>
+                            </tr>
+                        </table>
+                        <div class="hr"></div>
+                        <div class="table-content srcollstyle" id="chuKuRenWuQingDanContent">
+                            <table class="table content boxSizing" cellpadding="0" cellspacing="0" style="padding:0px 18px;">
+                                <!-- <tr class="row">
+                                    <td class="blue"> HOAHDJHKJG </td>
+                                    <td class="white"> 物料A </td>
+                                    <td class="qing"> 100 </td>
+                                    <td class="red"> 10 </td>
+                                </tr>  -->
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="block boxSizing block-six">
+                    <div class="titImg boxSizing"><img src="./imgs/title5.png" alt="title5"></div>
+                    <div class="eImg gongYingShangGongHuoZhiLiangHeGeLv"></div>
+                </div>
+            </div>
+        </div>
+
+        <script src="./js/jquery-3.4.1.min.js"></script>
+        <script src="./js/iscroll.js"></script>
+        <script src="./js/echarts-4.0.4.min.js"></script>
+        <script src="./js/layer/2.4/layer.js"></script>
+        <script>
+            $(function () {
+                var state = {
+                    //第一块数据
+                    wuLiaoAnQuanKuChunYuJing: [
+                        {
+                            name: "物料A",
+                            value: 100
+                        },
+                        {
+                            name: "物料B",
+                            value: 95
+                        },
+                        {
+                            name: "物料C",
+                            value: 30
+                        },
+                        {
+                            name: "物料D",
+                            value: 120
+                        }
+                    ],
+
+                    // 第二块数据
+                    wuLiaoKuLingTongJi: [
+                        {
+                            name: "3个月物料库龄",
+                            value: 30,
+                            label: {
+                                normal: {
+                                    show: true,
+                                    formatter: ['{img|{d}%}'].join('\n'),
+                                    width: 50,
+                                    rich: {
+                                        img: {
+                                            backgroundColor: {
+                                                image: './imgs/q1.png'
+                                            },
+                                            width: $(window).width() * 0.055,
+                                            height: $(window).width() * 0.055,
+                                            align: 'center',
+                                        }
+                                    }
+                                }
+
+                            }
+                        },
+                        {
+                            name: "12个月物料库龄",
+                            value: 17,
+                            label: {
+                                normal: {
+                                    show: true,
+                                    formatter: ['{img|{d}%}'].join('\n'),
+                                    width: 50,
+                                    rich: {
+                                        img: {
+                                            backgroundColor: {
+                                                image: './imgs/q2.png'
+                                            },
+                                            width: $(window).width() * 0.055,
+                                            height: $(window).width() * 0.055,
+                                            align: 'center',
+                                        }
+                                    }
+                                }
+
+                            }
+                        },
+                        {
+                            name: "6个月物料库龄",
+                            value: 30,
+                            label: {
+                                normal: {
+                                    show: true,
+                                    formatter: ['{img|{d}%}'].join('\n'),
+                                    width: 50,
+                                    rich: {
+                                        img: {
+                                            backgroundColor: {
+                                                image: './imgs/q3.png'
+                                            },
+                                            width: $(window).width() * 0.055,
+                                            height: $(window).width() * 0.055,
+                                            align: 'center',
+                                        }
+                                    }
+                                }
+
+                            }
+                        },
+                        {
+                            name: "36个月物料库龄",
+                            value: 8,
+                            label: {
+                                normal: {
+                                    show: true,
+                                    formatter: ['{img|{d}%}'].join('\n'),
+                                    width: 50,
+                                    rich: {
+                                        img: {
+                                            backgroundColor: {
+                                                image: './imgs/q4.png'
+                                            },
+                                            width: $(window).width() * 0.055,
+                                            height: $(window).width() * 0.055,
+                                            align: 'center',
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    ],
+
+                    // 第三块数据
+                    cangKuChuCunNengLiTongJi: [
+                        {
+                            name: "A区",
+                            value: 175
+                        },
+                        {
+                            name: "B区",
+                            value: 140
+                        },
+                        {
+                            name: "C区",
+                            value: 160
+                        },
+                        {
+                            name: "D区",
+                            value: 200
+                        }
+                    ],
+
+                    //第四快数据
+                    ruKuRenWuQingDan: [
+                        {
+                            purchaseOrder: "HOAHDJHKJG",
+                            nameOfMaterial: "物料A",
+                            quantityOfIncomingGoods: "100",
+                            uninspectedQuantity: "10",
+                        },
+                        {
+                            purchaseOrder: "HOAHDJHKJG",
+                            nameOfMaterial: "物料A",
+                            quantityOfIncomingGoods: "100",
+                            uninspectedQuantity: "10",
+                        },
+                        {
+                            purchaseOrder: "HOAHDJHKJG",
+                            nameOfMaterial: "物料A",
+                            quantityOfIncomingGoods: "100",
+                            uninspectedQuantity: "10",
+                        },
+                        {
+                            purchaseOrder: "HOAHDJHKJG",
+                            nameOfMaterial: "物料A",
+                            quantityOfIncomingGoods: "100",
+                            uninspectedQuantity: "10",
+                        },
+                        {
+                            purchaseOrder: "HOAHDJHKJG",
+                            nameOfMaterial: "物料A",
+                            quantityOfIncomingGoods: "100",
+                            uninspectedQuantity: "10",
+                        },
+                        {
+                            purchaseOrder: "HOAHDJHKJG",
+                            nameOfMaterial: "物料A",
+                            quantityOfIncomingGoods: "100",
+                            uninspectedQuantity: "10",
+                        },
+                        {
+                            purchaseOrder: "HOAHDJHKJG",
+                            nameOfMaterial: "物料A",
+                            quantityOfIncomingGoods: "100",
+                            uninspectedQuantity: "10",
+                        },
+                        {
+                            purchaseOrder: "HOAHDJHKJG",
+                            nameOfMaterial: "物料A",
+                            quantityOfIncomingGoods: "100",
+                            uninspectedQuantity: "10",
+                        }
+                    ],
+
+                    //第五快数据
+                    chuKuRenWuQingDan: [
+                        {
+                            productionOrder: "HOAHDJHKJG",
+                            outboundProcess: "焊接",
+                            quantityOfIncomingGoods: "100",
+                            uninspectedQuantity: "10",
+                        },
+                        {
+                            productionOrder: "HOAHDJHKJG",
+                            outboundProcess: "打孔",
+                            quantityOfIncomingGoods: "100",
+                            uninspectedQuantity: "10",
+                        },
+                        {
+                            productionOrder: "HOAHDJHKJG",
+                            outboundProcess: "包装",
+                            quantityOfIncomingGoods: "100",
+                            uninspectedQuantity: "10",
+                        },
+                        {
+                            productionOrder: "HOAHDJHKJG",
+                            outboundProcess: "切断",
+                            quantityOfIncomingGoods: "100",
+                            uninspectedQuantity: "10",
+                        },
+                        {
+                            productionOrder: "HOAHDJHKJG",
+                            outboundProcess: "包装",
+                            quantityOfIncomingGoods: "100",
+                            uninspectedQuantity: "10",
+                        },
+                        {
+                            productionOrder: "HOAHDJHKJG",
+                            outboundProcess: "包装",
+                            quantityOfIncomingGoods: "100",
+                            uninspectedQuantity: "10",
+                        },
+                        {
+                            productionOrder: "HOAHDJHKJG",
+                            outboundProcess: "包装",
+                            quantityOfIncomingGoods: "100",
+                            uninspectedQuantity: "10",
+                        },
+                        {
+                            productionOrder: "HOAHDJHKJG",
+                            outboundProcess: "包装",
+                            quantityOfIncomingGoods: "100",
+                            uninspectedQuantity: "10",
+                        }
+                    ],
+
+                    //第六块数据
+                    gongYingShangGongHuoZhiLiangHeGeLv: [
+                        {
+                            name: "供应商A",
+                            count: 100,
+                            badness: 40,
+                            percentOfPass:130
+                        },
+                        {
+                            name: "供应商B",
+                            count: 80,
+                            badness: 20,
+                            percentOfPass:135
+                        },
+                        {
+                            name: "供应商C",
+                            count: 60,
+                            badness: 21,
+                            percentOfPass:130
+                        },
+                        {
+                            name: "供应商D",
+                            count: 70,
+                            badness: 24,
+                            percentOfPass:128
+                        }
+                    ],
+
+
+                    //所有的实例化图表
+                    charts: {}
+                };
+                function setSeate(data) {
+                    for (var key in data) {
+                        state[key] = data[key];
+                    }
+                }
+
+                //设置整体样式
+                setStyle();
+                $(window).resize(setStyle)
+                function setStyle() {
+                    $('.header').css({
+                        height: $(window).height() * 0.12
+                    })
+                    $('.body').css({
+                        height: $(window).height() * 0.88
+                    });
+
+                    //页面尺寸改变时候同时改表图表尺寸
+                    for (var key in state.charts) {
+                        state.charts[key].resize()
+                    }
+                }
+
+                //设置顶部时间
+                // 2018年9月20日 周四 10:00
+                setInterval(setHeaderTime,1000 * 10)
+                setHeaderTime();
+                function setHeaderTime() {
+                    var now = new Date();
+                    var y = now.getFullYear();
+                    var M = now.getMonth() + 1;
+                    var d = now.getDate();
+                    var h = now.getHours();
+                    var m = now.getMinutes();
+                    var w = now.getDay();
+                    var weekday = new Array(7)
+                    weekday[0] = "周日"
+                    weekday[1] = "周一"
+                    weekday[2] = "周二"
+                    weekday[3] = "周三"
+                    weekday[4] = "周四"
+                    weekday[5] = "周五"
+                    weekday[6] = "周六"
+
+                    $('.header .time').text(y + "年" + M + "月" + d + "日" + " " + weekday[w] + " " + h + ":" + m)
+                }
+
+                //第一快
+                renderOne();
+                function renderOne() {
+                    var data = state.wuLiaoAnQuanKuChunYuJing;
+                    var xLabel = [];
+                    var dataValue = [];
+
+                    for (var i = 0; i < data.length; i++) {
+                        xLabel.push(data[i].name);
+                        dataValue.push(data[i].value);
+                    }
+
+                    var option = {
+                        // title: {
+                        //     text: '物料安全库存预警',
+                        //     // subtext: '纯属虚构',
+                        //     x: '20%',
+                        //     y: "0",
+                        //     textStyle: {
+                        //         color: "white",
+                        //         fontSize: 20
+                        //     }
+                        // },
+                        grid: {
+                            top: '18%',
+                            left: '3%',
+                            right: '3%',
+                            bottom: '6%',
+                            containLabel: true
+                        },
+                        xAxis: [{
+                            type: 'category',
+                            data: xLabel,
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: "#063374",
+                                    width: 1,
+                                    type: "solid"
+                                }
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            axisLabel: {
+                                show: true,
+                                textStyle: {
+                                    color: "#00c7ff",
+                                }
+                            },
+                        }],
+
+                        yAxis: [{
+                            type: 'value',
+                            axisLabel: {
+                                formatter: '{value}'
+                            },
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: "#03e1ff",
+                                    width: 1,
+                                    type: "solid"
+                                },
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            splitLine: {
+                                lineStyle: {
+                                    type: "desash",
+                                    color: "#387ef6",
+                                }
+                            }
+                        }],
+                        series: [{
+                            type: 'bar',
+                            data: data,
+                            barWidth: $(window).width() * 0.024,//柱子宽度
+                            //barGap: 1, //柱子之间间距
+                            label: {
+                                show: true,
+                                position: "top",
+                                color: "#03e1ff"
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color: new echarts.graphic.LinearGradient(0,0,0,1,[{
+                                        offset: 0,
+                                        color: '#03e1ff'
+                                    },{
+                                        offset: 1,
+                                        color: '#2e9dff'
+                                    }]),
+                                    opacity: 1,
+                                }
+                            }
+                        }]
+                    };
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init($('.wuLiaoAnQuanKuChunYuJing')[0]);
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                    state.charts.wuLiaoAnQuanKuChunYuJing = myChart;
+                }
+
+                //第二快
+                renderTwo()
+                function renderTwo() {
+
+                    var data = state.wuLiaoKuLingTongJi;
+                    var xLabel = [];
+                    var dataValue = [];
+
+                    for (var i = 0; i < data.length; i++) {
+                        xLabel.push(data[i].name);
+                        dataValue.push(data[i].value);
+                    }
+
+                    //南瓜图
+                    var ngOption = {
+                        title: {
+                            text: '物料库龄\n统计',
+                            // subtext: '纯属虚构',
+                            x: 'center',
+                            y: "center",
+                            textStyle: {
+                                color: "white",
+                                fontSize: 15,
+                                fontWeight: "lighter"
+                            }
+                        },
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: "{b} : {c} ({d}%)"
+                        },
+
+                        legend: { 
+
+                            x: 'center',
+                            y: 'bottom',
+                            data: xLabel,
+                            icon: 'circle',
+                            textStyle: {
+                                color: "white",
+                                fontSize: 12
+                            },
+                            padding: [0,0], 
+                            itemWidth: 8
+                        },
+                        calculable: true,
+                        series: [
+                            {
+                                color: ['#387ef7','#50d57f','#ef4e4e','#ffea00',],
+                                type: 'pie',
+                                radius: ['40%','60%'],
+                                // labelLine: {
+                                //     length: 10,
+                                //     length2: 15,
+                                // },
+                                data: state.wuLiaoKuLingTongJi
+                            }
+                        ]
+                    };
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init($('.wuLiaoKuLingTongJi')[0]);
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(ngOption);
+                    state.charts.wuLiaoKuLingTongJi = myChart;
+
+                }
+
+
+                //第三快
+                renderThree();
+                function renderThree() {
+                    var data = state.cangKuChuCunNengLiTongJi;
+                    var xLabel = [];
+                    var dataValue = [];
+
+                    for (var i = 0; i < data.length; i++) {
+                        xLabel.push(data[i].name);
+                        dataValue.push(data[i].value);
+                    }
+
+                    var option = {
+
+                        grid: {
+                            top: '15%',
+                            left: '3%',
+                            right: '10%',
+                            bottom: '6%',
+                            containLabel: true
+                        },
+                        xAxis: [{
+                            type: 'value',
+                            axisLabel: {
+                                formatter: '{value}'
+                            },
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: "#03e1ff",
+                                    width: 1,
+                                    type: "solid"
+                                },
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            splitLine: {
+                                lineStyle: {
+                                    type: "desash",
+                                    color: "#387ef6",
+                                }
+                            }
+                        }],
+
+                        yAxis: [{
+                            type: 'category',
+                            data: xLabel,
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: "#063374",
+                                    width: 1,
+                                    type: "solid"
+                                }
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            axisLabel: {
+                                show: true,
+                                textStyle: {
+                                    color: "#00c7ff",
+                                }
+                            },
+                        }],
+                        series: [{
+                            type: 'bar',
+                            data: data,
+                            barWidth: $(window).width() * 0.022, //柱子宽度 
+                            label: {
+                                show: true,
+                                position: "right",
+                                color: "#ef4e4e"
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color: {
+                                        type: 'linear',
+                                        colorStops: [{
+                                            offset: 0,color: '#4ed683' // 0% 处的颜色
+                                        },{
+                                            offset: 0.4,color: '#08e1f8' // 100% 处的颜色
+                                        },{
+                                            offset: 1,color: '#ef4e4e' // 100% 处的颜色
+                                        }],
+                                        global: false // 缺省为 false
+                                    },
+                                    opacity: 1,
+                                }
+                            }
+                        }]
+                    };
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init($('.cangKuChuCunNengLiTongJi')[0]);
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                    state.charts.cangKuChuCunNengLiTongJi = myChart;
+                }
+
+                //第四块
+                renderFour();
+                function renderFour() {
+                    var data = state.ruKuRenWuQingDan;
+                    var $dom = $('.ruKuRenWuQingDan .content');
+                    $dom.html('');
+                    if (!data.length) {
+                        $dom.html('<div class="noData">暂无数据</div>')
+                    } else {
+                        $.each(data,function (index,item) {
+                            var $item = $(' <tr class="row ' + (index % 2 !== 0 ? "wbg" : "") + '">' +
+                                '<td class="blue"> ' + item.purchaseOrder + ' </td>' +
+                                '<td class="white">  ' + item.nameOfMaterial + '  </td>' +
+                                '<td class="qing">  ' + item.quantityOfIncomingGoods + ' </td>' +
+                                '<td class="red" style="text-align:right">  ' + item.uninspectedQuantity + ' </td>' +
+                                '</tr>');
+                            $dom.append($item);
+                        });
+
+                        new IScroll('#ruKuRenWuQingDanContent',{
+                            scrollbars: true,
+                            mouseWheel: true,
+                            interactiveScrollbars: true,
+                            shrinkScrollbars: 'scale',
+                            fadeScrollbars: true
+                        });
+                    }
+
+                }
+
+                //第五块
+                renderFive();
+                function renderFive() {
+                    var data = state.chuKuRenWuQingDan;
+                    var $dom = $('.chuKuRenWuQingDan .content');
+                    $dom.html('');
+                    if (!data.length) {
+                        $dom.html('<div class="noData">暂无数据</div>')
+                    } else {
+                        $.each(data,function (index,item) {
+                            var $item = $(' <tr class="row ' + (index % 2 !== 0 ? "wbg" : "") + '">' +
+                                '<td class="blue"> ' + item.productionOrder + ' </td>' +
+                                '<td class="white">  ' + item.outboundProcess + '  </td>' +
+                                '<td class="qing">  ' + item.quantityOfIncomingGoods + ' </td>' +
+                                '<td class="red" style="text-align:right">  ' + item.uninspectedQuantity + ' </td>' +
+                                '</tr>');
+                            $dom.append($item);
+                        });
+
+                        new IScroll('#chuKuRenWuQingDanContent',{
+                            scrollbars: true,
+                            mouseWheel: true,
+                            interactiveScrollbars: true,
+                            shrinkScrollbars: 'scale',
+                            fadeScrollbars: true
+                        });
+                    }
+
+                }
+
+                //第六块 
+                renderSix();
+                function renderSix() {
+                    var data = state.gongYingShangGongHuoZhiLiangHeGeLv;
+                    var xLabel = [];
+                    var countValue = [];
+                    var badnessValue = [];
+                    //合格比例
+                    var qualifiedRatioValue = [];
+
+                    for (var i = 0; i < data.length; i++) {
+                        xLabel.push(data[i].name);
+                        countValue.push(data[i].count);
+                        badnessValue.push(data[i].badness);
+                        qualifiedRatioValue.push(data[i].percentOfPass);
+                    }
+
+                    var option = {
+                        // tooltip: {
+                        //     trigger: 'axis',
+                        //     // formatter: "{b} : {c} ({d}%)"
+                        // },
+                        tooltip: {
+                            trigger: 'axis',
+                            formatter: '{b} <br/> {a}：{c} <br/>{a1}：{c1} <br/>{a2}：{c2}% <br/>'
+                        },
+                        legend: {
+                            x: 'right',
+                            y: '0%',
+                            data: ['供货数量合计','不良数量合计','合格比例'],
+                            textStyle: {
+                                color: "white",
+                                fontSize: 8
+                            },
+                            data: [
+                                {
+                                    name: '供货数量合计',
+                                    // 强制设置图形为圆。
+                                    icon: 'circle',
+                                },
+                                {
+                                    name: '不良数量合计',
+                                    // 强制设置图形为圆。
+                                    icon: 'circle',
+                                },
+                                {
+                                    name: '合格比例',
+                                }
+                            ]
+                        },
+                        grid: {
+                            top: '18%',
+                            left: '3%',
+                            right: '3%',
+                            bottom: '6%',
+                            containLabel: true
+                        },
+                        xAxis: [{
+                            type: 'category',
+                            data: xLabel,
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: "#063374",
+                                    width: 1,
+                                    type: "solid"
+                                }
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            axisLabel: {
+                                show: true,
+                                textStyle: {
+                                    color: "#00c7ff",
+                                }
+                            },
+                        }],
+
+                        yAxis: [{
+                            type: 'value',
+                            axisLabel: {
+                                formatter: '{value}'
+                            },
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: "#03e1ff",
+                                    width: 1,
+                                    type: "solid"
+                                },
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            splitLine: {
+                                lineStyle: {
+                                    type: "desash",
+                                    color: "#387ef6",
+                                }
+                            }
+                        }],
+                        series: [
+                            {
+                                name: '供货数量合计',
+                                type: 'bar',
+                                data: countValue,
+                                barWidth: $(window).width() * 0.034 / 2,//柱子宽度
+                                //barGap: 1, //柱子之间间距 
+                                zlevel:2,
+                                label: {
+                                    show: true,
+                                    position: "top",
+                                    color: "#03e1ff"
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(0,0,0,1,[{
+                                            offset: 0,
+                                            color: '#03e1ff'
+                                        },{
+                                            offset: 1,
+                                            color: '#2e9dff'
+                                        }]),
+                                        opacity: 1,
+                                    }
+                                },
+                            },
+                            {
+                                name: '不良数量合计',
+                                type: 'bar',
+                                data: badnessValue,
+                                barWidth: $(window).width() * 0.034 / 2,//柱子宽度
+                                //barGap: 1, //柱子之间间距
+                                label: {
+                                    show: true,
+                                    position: "top",
+                                    color: "#03e1ff"
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(0,0,0,1,[{
+                                            offset: 0,
+                                            color: '#f77d7d'
+                                        },{
+                                            offset: 1,
+                                            color: '#f05353'
+                                        }]),
+                                        opacity: 1,
+                                    }
+                                }
+                            },
+                            {
+                                color: ['#4bc678'],
+                                name: '合格比例',
+                                type: 'line',
+                                data: qualifiedRatioValue,
+                                showAllSymbol: true,
+                                connectNulls: true,
+                                symbol: 'circle',
+                                // symbol: 'emptyCircle',
+                                symbolSize: 6,
+                                smooth: true,
+                                areaStyle: { //区域填充样式 
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(0,0,0,1,[{
+                                            offset: 0,
+                                            color: 'rgba(0,154,120,1)'
+                                        },
+                                        {
+                                            offset: 1,
+                                            color: 'rgba(0,0,0, 0)'
+                                        }
+                                        ],false),
+                                    }
+                                },
+
+                                lineStyle: {
+                                    width: 1,
+                                    normal: {
+                                        color: "#4bc678", // 线条颜色
+                                    },
+                                    borderColor: '#4bc678'
+                                },
+                            }
+                        ]
+                    };
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init($('.gongYingShangGongHuoZhiLiangHeGeLv')[0]);
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                    state.charts.gongYingShangGongHuoZhiLiangHeGeLv = myChart;
+                }
+
+            })
+        </script>
+    </body>
+
+</html>

@@ -1,0 +1,1759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>车间生产可视化看板</title>
+        <link rel="stylesheet" href="./style/cheJianShengChanKeShiHua.css">
+    </head>
+
+    <body>
+
+        <div class="page sc-page">
+            <div class="header boxSizing">
+                <div class="time"></div>
+            </div>
+            <div class="body boxSizing clearfloat">
+                <div class="block boxSizing block-one">
+                    <div class="titImg boxSizing"><img style="width: 56%;" src="./imgs/title1-sc.png" alt=""></div>
+                    <div class="eImg">
+                        <div class="row boxSizing clearfloat productionSchedule">
+                            <div class="col icon"><img src="./imgs/icon.png" alt=""></div>
+                            <div class="col desc">生产计划数</div>
+                            <div class="col val"><span class="value">0</span><span class="unit">个</span></div>
+                        </div>
+                        <div class="row boxSizing clearfloat pdm">
+                            <div class="col icon"><img src="./imgs/icon2.png" alt=""></div>
+                            <div class="col desc">产品数</div>
+                            <div class="col val"><span class="value">0</span><span class="unit">台</span></div>
+                        </div>
+                        <div class="row boxSizing clearfloat attendanceNumber">
+                            <div class="col icon"><img src="./imgs/icon3.png" alt=""></div>
+                            <div class="col desc">出勤人数</div>
+                            <div class="col val"><span class="value">0</span><span class="unit">人</span></div>
+                        </div>
+                        <div class="row boxSizing clearfloat cee">
+                            <div class="col icon"><img src="./imgs/icon4.png" alt=""></div>
+                            <div class="col desc">运行设备</div>
+                            <div class="col val"><span class="value">0</span><span class="unit">台</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block boxSizing block-two">
+                    <div class="titImg boxSizing"><img src="./imgs/title2-sc.png" alt=""></div>
+                    <div class="eImg block-two-eImg"></div>
+                </div>
+                <div class="block boxSizing block-three">
+                    <div class="titImg boxSizing"><img style="width: 56%;" src="./imgs/title3-sc.png" alt=""></div>
+                    <div class="eImg block-three-eImg"></div>
+                </div>
+                <div class="block boxSizing block-four">
+                    <div class="titImg boxSizing"><img style="width: 56%; margin-left: 13%;" src="./imgs/title4-sc.png" alt=""></div>
+                    <div class="eImg block-four-eImg"></div>
+                </div>
+                <div class="block boxSizing block-five">
+                    <div class="titImg boxSizing"><img src="./imgs/title5-sc.png" alt=""></div>
+                    <div class="eImg block-five-eImg"></div>
+                </div>
+                <div class="block boxSizing block-six">
+                    <div class="titImg boxSizing"><img src="./imgs/title6-sc.png" alt=""></div>
+                    <div class="eImg block-six-eImg"></div>
+                </div>
+
+                <div class="block boxSizing block-seven">
+                    <div class="titImg boxSizing"><img src="./imgs/title7-sc.png" alt=""></div>
+                    <div class="eImg block-seven-eImg"></div>
+
+                    <!-- 八个小圆圈的背景图 -->
+                    <div class="quanBgContainer boxSizing">
+                        <div class="quanBg boxSizing"><img src="./imgs/quanBg.png" alt=""></div>
+                        <div class="quanBg boxSizing"><img src="./imgs/quanBg.png" alt=""></div>
+                        <div class="quanBg boxSizing"><img src="./imgs/quanBg.png" alt=""></div>
+                        <div class="quanBg boxSizing"><img src="./imgs/quanBg.png" alt=""></div>
+                        <div class="quanBg boxSizing"><img src="./imgs/quanBg.png" alt=""></div>
+                        <div class="quanBg boxSizing"><img src="./imgs/quanBg.png" alt=""></div>
+                        <div class="quanBg boxSizing"><img src="./imgs/quanBg.png" alt=""></div>
+                        <div class="quanBg boxSizing"><img src="./imgs/quanBg.png" alt=""></div>
+                    </div>
+
+                </div>
+
+                <div class="centerbg">
+                    <img src="./imgs/centerBg.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <script src="./js/jquery-3.4.1.min.js"></script>
+        <script src="./js/iscroll.js"></script>
+        <script src="./js/echarts-4.0.4.min.js"></script>
+        <script src="./js/layer/2.4/layer.js"></script>
+        <script>
+            $(function () {
+                var state = {
+                    //第一块数据
+                    blockOne: {
+                        //生产计划数
+                        productionSchedule: 30,
+                        //产品数
+                        pdm: 100,
+                        //出勤人数
+                        attendanceNumber: 99,
+                        //运行设备
+                        cee: 99,
+                    },
+
+                    //第二块数据
+                    blockTwo: {
+                        //计划号
+                        planNo: "123343223",
+                        //产品
+                        product: "屏蔽泵",
+                        //数量
+                        number: 100,
+                        //数据
+                        data: [
+                            {
+                                name: "定子组立",
+                                plan: 20, //计划
+                                over: 5//已完成
+                            },
+                            {
+                                name: "转子组立",
+                                plan: 20, //计划
+                                over: 5//已完成
+                            },
+                            {
+                                name: "涂胶",
+                                plan: 20, //计划
+                                over: 5//已完成
+                            },
+                            {
+                                name: "机壳组立",
+                                plan: 20, //计划
+                                over: 5//已完成
+                            }
+                        ]
+                    },
+
+                    //第三块数据
+                    blockThree: [
+                        {
+                            name: "定子组立",
+                            data1: 30, //计划数量
+                            data2: 8, //生产合格数
+                            data3: 35, //合格比例
+                            data4: 25, //质检合格数量
+                        },
+                        {
+                            name: "转子组立",
+                            data1: 30, //计划数量
+                            data2: 8, //生产合格数
+                            data3: 40, //合格比例
+                            data4: 20, //质检合格数量
+                        },
+                        {
+                            name: "涂胶",
+                            data1: 30, //计划数量
+                            data2: 8, //生产合格数
+                            data3: 35, //合格比例
+                            data4: 20, //质检合格数量
+                        },
+                        {
+                            name: "机壳组立",
+                            data1: 30, //计划数量
+                            data2: 8, //生产合格数
+                            data3: 40, //合格比例
+                            data4: 20, //质检合格数量
+                        }
+                    ],
+
+                    //第四块数据
+                    blockFour: [
+                        {
+                            name: "外观不良",
+                            value: 45, //计划数量 
+                        },
+                        {
+                            name: "密封不良",
+                            value: 17, //计划数量 
+                        },
+                        {
+                            name: "通电不良",
+                            value: 30, //计划数量 
+                        },
+                        {
+                            name: "其他",
+                            value: 8, //计划数量 
+                        }
+                    ],
+
+                    //第五块数据
+                    blockFive: [
+                        {
+                            name: "特种泵",
+                            data1: 20,
+                            data2: 10
+                        },
+                        {
+                            name: "磁力泵",
+                            data1: 20,
+                            data2: 10
+                        },
+                        {
+                            name: "屏蔽泵",
+                            data1: 20,
+                            data2: 10
+                        },
+                        {
+                            name: "离心泵",
+                            data1: 20,
+                            data2: 10
+                        }
+                    ],
+
+                    //第六块数据
+                    blockSix: [
+                        {
+                            name: "特种泵",
+                            data1: 150,
+                            data2: 100
+                        },
+                        {
+                            name: "磁力泵",
+                            data1: 150,
+                            data2: 100
+                        },
+                        {
+                            name: "屏蔽泵",
+                            data1: 150,
+                            data2: 100
+                        },
+                        {
+                            name: "离心泵",
+                            data1: 150,
+                            data2: 100
+                        }
+                    ],
+
+
+                    // 第七块数据
+                    // 每块数据八个小图
+                    blockSeven: [
+                        //第一块数据
+                        [
+                            {
+                                name: "PVC完成率",
+                                value: 50,
+                            },
+                            {
+                                name: "炭烧完成率",
+                                value: 20,
+                            },
+                            {
+                                name: "盐酸完成率",
+                                value: 60,
+                            },
+                            {
+                                name: "水泥完成率",
+                                value: 80,
+                            },
+                            {
+                                name: "PVC完成率",
+                                value: 90,
+                            },
+                            {
+                                name: "炭烧完成率",
+                                value: 30,
+                            },
+                            {
+                                name: "盐酸完成率",
+                                value: 60,
+                            },
+                            {
+                                name: "水泥完成率",
+                                value: 80,
+                            }
+                        ],
+
+                        //第一块数据
+                        [
+                            {
+                                name: "第二完成率",
+                                value: 50,
+                            },
+                            {
+                                name: "第二完成率",
+                                value: 20,
+                            },
+                            {
+                                name: "第二完成率",
+                                value: 60,
+                            },
+                            {
+                                name: "第二1完成率",
+                                value: 80,
+                            },
+                            {
+                                name: "第二1完成率",
+                                value: 90,
+                            },
+                            {
+                                name: "第二1完成率",
+                                value: 30,
+                            },
+                            {
+                                name: "第二1完成率",
+                                value: 60,
+                            },
+                            {
+                                name: "第二1完成率",
+                                value: 80,
+                            }
+                        ]
+
+                    ],
+
+
+                    //所有的实例化图表
+                    charts: {}
+                };
+                function setSeate(data) {
+                    for (var key in data) {
+                        state[key] = data[key];
+                    }
+                }
+
+                //设置整体样式
+                setStyle();
+                $(window).resize(setStyle)
+                function setStyle() {
+                    $('.header').css({
+                        height: $(window).height() * 0.12
+                    })
+                    $('.body').css({
+                        height: $(window).height() * 0.88
+                    });
+
+                    //页面尺寸改变时候同时改表图表尺寸
+                    for (var key in state.charts) {
+                        state.charts[key].resize()
+                    }
+                }
+
+                //设置顶部时间
+                // 2018年9月20日 周四 10:00
+                setInterval(setHeaderTime,1000 * 10)
+                setHeaderTime();
+                function setHeaderTime() {
+                    var now = new Date();
+                    var y = now.getFullYear();
+                    var M = now.getMonth() + 1;
+                    var d = now.getDate();
+                    var h = now.getHours();
+                    var m = now.getMinutes();
+                    var w = now.getDay();
+                    var weekday = new Array(7)
+                    weekday[0] = "周日"
+                    weekday[1] = "周一"
+                    weekday[2] = "周二"
+                    weekday[3] = "周三"
+                    weekday[4] = "周四"
+                    weekday[5] = "周五"
+                    weekday[6] = "周六"
+
+                    $('.header .time').text(y + "年" + M + "月" + d + "日" + " " + weekday[w] + " " + h + ":" + m)
+                }
+
+                //第一块
+                renderOne();
+                function renderOne() {
+                    var data = state.blockOne;
+                    $('.block-one .productionSchedule .value').text(data.productionSchedule);
+                    $('.block-one .pdm .value').text(data.pdm);
+                    $('.block-one .attendanceNumber .value').text(data.attendanceNumber);
+                    $('.block-one .cee .value').text(data.cee);
+                }
+
+                // 第二块
+                renderTwo();
+                function renderTwo() {
+                    var data = state.blockTwo.data;
+                    var xLabel = [];
+                    var data1 = [];
+                    var data2 = [];
+
+                    for (var i = 0; i < data.length; i++) {
+                        xLabel.push(data[i].name);
+                        data1.push(data[i].plan);
+                        data2.push(data[i].over);
+                    }
+
+                    var option = {
+                        tooltip: {
+                            trigger: 'axis',
+
+                        },
+                        legend: {
+                            x: 'right',
+                            y: '0%',
+                            data: ['计划数量','完成数量'],
+                            textStyle: {
+                                color: "white",
+                                fontSize: 8,
+                            },
+                            itemWidth: 6,
+                            data: [
+                                {
+                                    name: '计划数量',
+                                    // 强制设置图形为圆。
+                                    icon: 'circle',
+                                    width: 1,
+                                },
+                                {
+                                    name: '完成数量',
+                                    // 强制设置图形为圆。
+                                    icon: 'circle',
+                                }
+                            ]
+                        },
+                        grid: {
+                            top: '25%',
+                            left: '3%',
+                            right: '3%',
+                            bottom: '6%',
+                            containLabel: true
+                        },
+                        xAxis: [{
+                            type: 'category',
+                            data: xLabel,
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: "#063374",
+                                    width: 1,
+                                    type: "solid"
+                                }
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            axisLabel: {
+                                show: true,
+                                textStyle: {
+                                    color: "#00c7ff",
+                                    fontSize: 12
+                                }
+                            },
+                        }],
+
+                        yAxis: [{
+                            type: 'value',
+                            axisLabel: {
+                                formatter: '{value}'
+                            },
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: "#03e1ff",
+                                    width: 1,
+                                    type: "solid"
+                                },
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            splitLine: {
+                                lineStyle: {
+                                    type: "desash",
+                                    color: "#387ef6",
+                                }
+                            }
+                        }],
+                        series: [
+                            {
+                                name: '计划数量',
+                                type: 'bar',
+                                data: data1,
+                                barWidth: $(window).width() * 0.025 / 2,//柱子宽度
+                                //barGap: 1, //柱子之间间距 
+                                zlevel: 2,
+                                label: {
+                                    show: true,
+                                    position: "top",
+                                    color: "#03e1ff"
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(0,0,0,1,[{
+                                            offset: 0,
+                                            color: '#03e1ff'
+                                        },{
+                                            offset: 1,
+                                            color: '#2e9dff'
+                                        }]),
+                                        opacity: 1,
+                                    }
+                                },
+                            },
+                            {
+                                name: '完成数量',
+                                type: 'bar',
+                                data: data2,
+                                barWidth: $(window).width() * 0.025 / 2,//柱子宽度
+                                //barGap: 1, //柱子之间间距
+                                label: {
+                                    show: true,
+                                    position: "top",
+                                    color: "#03e1ff"
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(0,0,0,1,[{
+                                            offset: 0,
+                                            color: '#f77d7d'
+                                        },{
+                                            offset: 1,
+                                            color: '#f05353'
+                                        }]),
+                                        opacity: 1,
+                                    }
+                                }
+                            }
+                        ]
+                    };
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init($('.block-two-eImg')[0]);
+
+                    //其他信息
+                    var $otherInfoDom = $('<div class="otherInfo">计划号：' + state.blockTwo.planNo + '<br /><div>产品：' + state.blockTwo.product + '&nbsp;&nbsp;&nbsp;&nbsp;数量：' + state.blockTwo.number + '</div></div>');
+                    $('.block-two-eImg').append($otherInfoDom);
+
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                    state.charts.two = myChart;
+                }
+
+                //第三块 
+                renderThree();
+                function renderThree() {
+                    var data = state.blockThree;
+                    var xLabel = [];
+                    var data1 = [];
+                    var data2 = [];
+                    var data3 = [];
+                    var data4 = [];
+                    //合格比例
+                    var qualifiedRatioValue = [];
+
+                    for (var i = 0; i < data.length; i++) {
+                        xLabel.push(data[i].name);
+                        data1.push(data[i].data1);
+                        data2.push(data[i].data2);
+                        data3.push(data[i].data3);
+                        data4.push(data[i].data4);
+                    }
+
+                    var option = {
+                        tooltip: {
+                            trigger: 'axis',
+                        },
+                        legend: {
+                            x: 'right',
+                            y: '0%',
+                            itemHeight: 6,
+                            itemWidth: 11,
+                            data: ['计划数量','生产合格数量','合格比例','质检合格数量'],
+                            textStyle: {
+                                color: "white",
+                                fontSize: 8
+                            },
+                            data: [
+                                {
+                                    name: '计划数量',
+                                    // 强制设置图形为圆。
+                                    icon: 'circle',
+                                    // itemWidth: 6,
+                                },
+                                {
+                                    name: '生产合格数量',
+                                    // 强制设置图形为圆。
+                                    icon: 'circle',
+                                },
+                                {
+                                    name: '合格比例',
+                                },
+                                {
+                                    name: '质检合格数量',
+                                    // 强制设置图形为圆。
+                                    icon: 'circle',
+                                }
+                            ]
+                        },
+                        grid: {
+                            top: '25%',
+                            left: '3%',
+                            right: '3%',
+                            bottom: '6%',
+                            containLabel: true
+                        },
+                        xAxis: [{
+                            type: 'category',
+                            data: xLabel,
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: "#063374",
+                                    width: 1,
+                                    type: "solid"
+                                }
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            axisLabel: {
+                                show: true,
+                                textStyle: {
+                                    color: "#00c7ff",
+                                }
+                            },
+                        }],
+
+                        yAxis: [{
+                            type: 'value',
+                            axisLabel: {
+                                formatter: '{value}'
+                            },
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: "#03e1ff",
+                                    width: 1,
+                                    type: "solid"
+                                },
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            splitLine: {
+                                lineStyle: {
+                                    type: "desash",
+                                    color: "#387ef6",
+                                }
+                            }
+                        }],
+                        series: [
+                            {
+                                name: '计划数量',
+                                type: 'bar',
+                                data: data1,
+                                barWidth: $(window).width() * 0.02 / 2,//柱子宽度
+                                //barGap: 1, //柱子之间间距 
+                                zlevel: 2,
+                                label: {
+                                    show: true,
+                                    position: "top",
+                                    color: "#03e1ff"
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(0,0,0,1,[{
+                                            offset: 0,
+                                            color: '#03e1ff'
+                                        },{
+                                            offset: 1,
+                                            color: '#2e9dff'
+                                        }]),
+                                        opacity: 1,
+                                    }
+                                },
+                            },
+                            {
+                                name: '生产合格数量',
+                                type: 'bar',
+                                data: data2,
+                                barWidth: $(window).width() * 0.02 / 2,//柱子宽度
+                                //barGap: 1, //柱子之间间距
+                                label: {
+                                    show: true,
+                                    position: "top",
+                                    color: "#03e1ff"
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(0,0,0,1,[{
+                                            offset: 0,
+                                            color: '#f77d7d'
+                                        },{
+                                            offset: 1,
+                                            color: '#f05353'
+                                        }]),
+                                        opacity: 1,
+                                    }
+                                }
+                            },
+                            {
+                                color: ['#4bc678'],
+                                name: '合格比例',
+                                type: 'line',
+                                data: data3,
+                                showAllSymbol: true,
+                                connectNulls: true,
+                                symbol: 'circle',
+                                // symbol: 'emptyCircle',
+                                symbolSize: 6,
+                                smooth: true,
+                                areaStyle: { //区域填充样式 
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(0,0,0,1,[{
+                                            offset: 0,
+                                            color: 'rgba(0,154,120,1)'
+                                        },
+                                        {
+                                            offset: 1,
+                                            color: 'rgba(0,0,0, 0)'
+                                        }
+                                        ],false),
+                                    }
+                                },
+
+                                lineStyle: {
+                                    width: 1,
+                                    normal: {
+                                        color: "#50D57F", // 线条颜色
+                                    },
+                                    borderColor: '#4bc678'
+                                },
+                            },
+                            {
+                                name: '质检合格数量',
+                                type: 'bar',
+                                data: data4,
+                                barWidth: $(window).width() * 0.02 / 2,//柱子宽度
+                                //barGap: 1, //柱子之间间距
+                                label: {
+                                    show: true,
+                                    position: "top",
+                                    color: "#03e1ff"
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(0,0,0,1,[{
+                                            offset: 0,
+                                            color: '#88ECB6'
+                                        },{
+                                            offset: 1,
+                                            color: '#50D57F'
+                                        }]),
+                                        opacity: 1,
+                                    }
+                                }
+                            },
+                        ]
+                    };
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init($('.block-three-eImg')[0]);
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                    state.charts.three = myChart;
+                }
+
+
+                //第四快
+                renderFour()
+                function renderFour() {
+
+                    var data = state.blockFour;
+                    var xLabel = [];
+                    var dataValue = [];
+
+                    for (var i = 0; i < data.length; i++) {
+                        xLabel.push(data[i].name);
+                        dataValue.push(data[i].value);
+                    }
+
+                    //南瓜图
+                    var ngOption = {
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: "{b} : {c} ({d}%)"
+                        },
+                        legend: {
+                            x: 'center',
+                            y: '85%',
+                            data: xLabel,
+                            icon: 'circle',
+                            itemWidth: 6,
+                            textStyle: {
+                                color: "white",
+                                fontSize: 8
+                            },
+                        },
+                        calculable: true,
+                        series: [
+                            {
+
+                                labelLine: {
+                                    normal: {
+                                        length: 15,
+                                        length2: 30,
+                                        lineStyle: {
+                                            type: 'solid'
+                                        }
+                                    }
+
+                                },
+                                label: {
+                                    normal: {
+                                        formatter: (params) => {
+                                            return '{c|' + params.percent.toFixed(0) + '%}'
+                                        },
+                                        borderWidth: 0,
+                                        borderRadius: 4,
+                                        padding: [0,-30],
+                                        height: 30,
+                                        fontSize: 15,
+                                        align: 'center',
+                                        rich: {
+
+                                        }
+                                    }
+                                },
+                                color: ['#387ef7','#50d57f','#ef4e4e','#ffea00',],
+                                type: 'pie',
+                                radius: ['30%','50%'],
+                                data: state.blockFour,
+                                // label: {
+                                //     normal: {
+                                //         show: true, 
+                                //     }
+
+                                // }
+                            }
+                        ],
+
+                    };
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init($('.block-four-eImg')[0]);
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(ngOption);
+                    state.charts.four = myChart;
+
+                }
+
+                // 第五块
+                renderFive();
+                function renderFive() {
+                    var data = state.blockFive;
+                    var xLabel = [];
+                    var data1 = [];
+                    var data2 = [];
+
+                    for (var i = 0; i < data.length; i++) {
+                        xLabel.push(data[i].name);
+                        data1.push(data[i].data1);
+                        data2.push(data[i].data2);
+                    }
+
+                    var option = {
+                        tooltip: {
+                            trigger: 'axis',
+
+                        },
+                        legend: {
+                            x: 'right',
+                            y: '0%',
+                            data: ['计划数量','完成数量'],
+                            textStyle: {
+                                color: "white",
+                                fontSize: 8,
+                            },
+                            itemWidth: 6,
+                            data: [
+                                {
+                                    name: '计划数量',
+                                    // 强制设置图形为圆。
+                                    icon: 'circle',
+                                    width: 1,
+                                },
+                                {
+                                    name: '完成数量',
+                                    // 强制设置图形为圆。
+                                    icon: 'circle',
+                                }
+                            ]
+                        },
+                        grid: {
+                            top: '12%',
+                            left: '3%',
+                            right: '12%',
+                            bottom: '6%',
+                            containLabel: true
+                        },
+                        xAxis: [{
+                            type: 'value',
+                            axisLabel: {
+                                formatter: '{value}'
+                            },
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: "#387EF7",
+                                    width: 1,
+                                    type: "solid"
+                                },
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            splitLine: {
+                                lineStyle: {
+                                    type: "desash",
+                                    color: "#387ef6",
+                                }
+                            }
+                        }],
+                        yAxis: [{
+                            type: 'category',
+                            data: xLabel,
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: "#03e1ff",
+                                    width: 1,
+                                    type: "solid"
+                                }
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            axisLabel: {
+                                show: true,
+                                textStyle: {
+                                    color: "#00c7ff",
+                                    fontSize: 12
+                                }
+                            }
+                        }],
+                        series: [
+                            {
+                                name: '计划数量',
+                                type: 'bar',
+                                data: data1,
+                                barWidth: $(window).width() * 0.02 / 2,//柱子宽度
+                                //barGap: 1, //柱子之间间距 
+                                zlevel: 2,
+                                label: {
+                                    show: true,
+                                    position: "right",
+                                    color: "#03e1ff"
+                                },
+                                itemStyle: {
+                                    type: 'linear',
+                                    normal: {
+                                        color: new echarts.graphic.LinearGradient(0,0,0,1,[{
+                                            offset: 0,
+                                            color: '#03e1ff'
+                                        },{
+                                            offset: 1,
+                                            color: '#2e9dff'
+                                        }]),
+                                        opacity: 1,
+                                    }
+                                },
+                            },
+                            {
+                                name: '完成数量',
+                                type: 'bar',
+                                data: data2,
+                                barWidth: $(window).width() * 0.02 / 2,//柱子宽度
+                                //barGap: 1, //柱子之间间距
+                                label: {
+                                    show: true,
+                                    position: "right",
+                                    color: "#03e1ff"
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        type: 'linear',
+                                        color: new echarts.graphic.LinearGradient(0,0,0,1,[{
+                                            offset: 0,
+                                            color: '#f77d7d'
+                                        },{
+                                            offset: 1,
+                                            color: '#f05353'
+                                        }]),
+                                        opacity: 1,
+                                    }
+                                }
+                            }
+                        ]
+                    };
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init($('.block-five-eImg')[0]);
+
+
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                    state.charts.five = myChart;
+                }
+
+                // 第六块
+                renderSix();
+                function renderSix() {
+                    var data = state.blockSix;
+                    var xLabel = [];
+                    var data1 = [];
+                    var data2 = [];
+
+                    for (var i = 0; i < data.length; i++) {
+                        xLabel.push(data[i].name);
+                        data1.push(data[i].data1);
+                        data2.push(data[i].data2);
+                    }
+
+                    var option = {
+                        tooltip: {
+                            trigger: 'axis',
+
+                        },
+                        legend: {
+                            x: 'right',
+                            y: '0%',
+                            data: ['计划数量','完成数量'],
+                            textStyle: {
+                                color: "white",
+                                fontSize: 8,
+                            },
+                            itemWidth: 6,
+                            data: [
+                                {
+                                    name: '计划数量',
+                                    // 强制设置图形为圆。
+                                    icon: 'circle',
+                                    width: 1,
+                                },
+                                {
+                                    name: '完成数量',
+                                    // 强制设置图形为圆。
+                                    icon: 'circle',
+                                }
+                            ]
+                        },
+                        grid: {
+                            top: '12%',
+                            left: '3%',
+                            right: '12%',
+                            bottom: '6%',
+                            containLabel: true
+                        },
+                        xAxis: [{
+                            type: 'value',
+                            axisLabel: {
+                                formatter: '{value}'
+                            },
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: "#387EF7",
+                                    width: 1,
+                                    type: "solid"
+                                },
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            splitLine: {
+                                lineStyle: {
+                                    type: "desash",
+                                    color: "#387ef6",
+                                }
+                            }
+                        }],
+                        yAxis: [{
+                            type: 'category',
+                            data: xLabel,
+                            axisLine: {
+                                show: true,
+                                lineStyle: {
+                                    color: "#03e1ff",
+                                    width: 1,
+                                    type: "solid"
+                                }
+                            },
+                            axisTick: {
+                                show: false
+                            },
+                            axisLabel: {
+                                show: true,
+                                textStyle: {
+                                    color: "#00c7ff",
+                                    fontSize: 12
+                                }
+                            }
+                        }],
+                        series: [
+                            {
+                                name: '计划数量',
+                                type: 'bar',
+                                data: data1,
+                                barWidth: $(window).width() * 0.02 / 2,//柱子宽度
+                                //barGap: 1, //柱子之间间距 
+                                zlevel: 2,
+                                label: {
+                                    show: true,
+                                    position: "right",
+                                    color: "#03e1ff"
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        type: 'linear',
+                                        color: new echarts.graphic.LinearGradient(0,0,0,1,[{
+                                            offset: 0,
+                                            color: '#03e1ff'
+                                        },{
+                                            offset: 1,
+                                            color: '#2e9dff'
+                                        }]),
+                                        opacity: 1,
+                                    }
+                                },
+                            },
+                            {
+                                name: '完成数量',
+                                type: 'bar',
+                                data: data2,
+                                barWidth: $(window).width() * 0.02 / 2,//柱子宽度
+                                //barGap: 1, //柱子之间间距
+                                label: {
+                                    show: true,
+                                    position: "right",
+                                    color: "#03e1ff"
+                                },
+                                itemStyle: {
+                                    normal: {
+                                        type: 'linear',
+                                        color: new echarts.graphic.LinearGradient(0,0,0,1,[{
+                                            offset: 0,
+                                            color: '#f77d7d'
+                                        },{
+                                            offset: 1,
+                                            color: '#f05353'
+                                        }]),
+                                        opacity: 1,
+                                    }
+                                }
+
+                            }
+                        ]
+                    };
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init($('.block-six-eImg')[0]);
+
+
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                    state.charts.six = myChart;
+                }
+
+                // 第六块
+                renderSeven();
+                function renderSeven() {
+                    var data = state.blockSeven[0];
+
+                    var option = {
+                        tooltip: {
+                            formatter: '{a} <br/>{b} : {c}%'
+                        },
+                        series: [
+                            {
+
+                                name: data[0].name,
+                                data: [
+                                    {
+                                        value: data[0].value,
+                                        name: data[0].name,
+                                    },
+                                ],
+                                center: ['14.5%','25%'],    // 默认全局居中
+
+                                type: 'gauge',
+                                radius: "45%",
+                                axisLine: {            // 坐标轴线
+                                    lineStyle: {       // 属性lineStyle控制线条样式
+                                        color: [
+                                            [0.2,'#42E4FB'],[0.8,'#387EF7'],[1,'#EF4E4E']
+                                        ],
+                                        width: 6,
+                                    }
+                                },
+                                axisLabel: {            // 坐标轴小标记 
+                                    color: '#42E4FB',
+                                    fontSize: 8
+                                },
+                                axisTick: {            // 坐标轴小标记
+                                    length: 8,        // 属性length控制线长
+                                    lineStyle: {       // 属性lineStyle控制线条样式
+                                        color: 'auto',
+                                        shadowColor: '#fff', //默认透明 ,
+                                        fontSize: 8
+                                    }
+                                },
+                                splitLine: {           // 分隔线
+                                    show: false,
+                                    length: 10,         // 属性length控制线长
+                                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                                        width: 1,
+                                        color: '#fff'
+                                    }
+                                },
+                                pointer: {           // 分隔线
+                                    shadowColor: '#3386D9', //默认透明
+                                    shadowBlur: 5,
+                                    length: "50%",
+                                    width: 3
+                                },
+                                title: {
+                                    offsetCenter: ["0%","95%"],       // x, y，单位px 
+                                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                                        fontWeight: 'bolder',
+                                        fontSize: 10,
+                                        color: '#A6CAF3',
+                                        bottom: 0
+                                    }
+                                },
+                                detail: {
+                                    offsetCenter: ["0%","65%"],       // x, y，单位px 
+                                    formatter: '{value}%',
+                                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE 
+                                        fontSize: 13,
+                                        color: '#FFFFFF',
+                                        bottom: 0
+                                    }
+
+                                },
+                            },
+
+                            {
+
+                                name: data[1].name,
+                                data: [
+                                    {
+                                        value: data[1].value,
+                                        name: data[1].name,
+                                    },
+                                ],
+                                center: ['38%','25%'],    // 默认全局居中
+
+                                type: 'gauge',
+                                radius: "45%",
+                                axisLine: {            // 坐标轴线
+                                    lineStyle: {       // 属性lineStyle控制线条样式
+                                        color: [
+                                            [0.2,'#42E4FB'],[0.8,'#387EF7'],[1,'#EF4E4E']
+                                        ],
+                                        width: 6,
+                                    }
+                                },
+                                axisLabel: {            // 坐标轴小标记 
+                                    color: '#42E4FB',
+                                    fontSize: 8
+                                },
+                                axisTick: {            // 坐标轴小标记
+                                    length: 8,        // 属性length控制线长
+                                    lineStyle: {       // 属性lineStyle控制线条样式
+                                        color: 'auto',
+                                        shadowColor: '#fff', //默认透明 ,
+                                        fontSize: 8
+                                    }
+                                },
+                                splitLine: {           // 分隔线
+                                    show: false,
+                                    length: 10,         // 属性length控制线长
+                                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                                        width: 1,
+                                        color: '#fff'
+                                    }
+                                },
+
+                                pointer: {           // 分隔线
+                                    shadowColor: '#3386D9', //默认透明
+                                    shadowBlur: 5,
+                                    length: "50%",
+                                    width: 3
+                                },
+                                title: {
+                                    offsetCenter: ["0%","95%"],       // x, y，单位px 
+                                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                                        fontWeight: 'bolder',
+                                        fontSize: 10,
+                                        color: '#A6CAF3',
+                                        bottom: 0
+                                    }
+                                },
+                                detail: {
+                                    offsetCenter: ["0%","65%"],       // x, y，单位px 
+                                    formatter: '{value}%',
+                                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE 
+                                        fontSize: 13,
+                                        color: '#FFFFFF',
+                                        bottom: 0
+                                    }
+
+                                },
+                            },
+
+                            {
+                                name: data[2].name,
+                                data: [
+                                    {
+                                        value: data[2].value,
+                                        name: data[2].name,
+                                    },
+                                ],
+                                center: ['62%','25%'],    // 默认全局居中
+
+                                type: 'gauge',
+                                radius: "45%",
+                                axisLine: {            // 坐标轴线
+                                    lineStyle: {       // 属性lineStyle控制线条样式
+                                        color: [
+                                            [0.2,'#42E4FB'],[0.8,'#387EF7'],[1,'#EF4E4E']
+                                        ],
+                                        width: 6,
+                                    }
+                                },
+                                axisLabel: {            // 坐标轴小标记 
+                                    color: '#42E4FB',
+                                    fontSize: 8
+                                },
+                                axisTick: {            // 坐标轴小标记
+                                    length: 8,        // 属性length控制线长
+                                    lineStyle: {       // 属性lineStyle控制线条样式
+                                        color: 'auto',
+                                        shadowColor: '#fff', //默认透明 ,
+                                        fontSize: 8
+                                    }
+                                },
+                                splitLine: {           // 分隔线
+                                    show: false,
+                                    length: 10,         // 属性length控制线长
+                                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                                        width: 1,
+                                        color: '#fff'
+                                    }
+                                },
+
+                                pointer: {           // 分隔线
+                                    shadowColor: '#3386D9', //默认透明
+                                    shadowBlur: 5,
+                                    length: "50%",
+                                    width: 3
+                                },
+                                title: {
+                                    offsetCenter: ["0%","95%"],       // x, y，单位px 
+                                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                                        fontWeight: 'bolder',
+                                        fontSize: 10,
+                                        color: '#A6CAF3',
+                                        bottom: 0
+                                    }
+                                },
+                                detail: {
+                                    offsetCenter: ["0%","65%"],       // x, y，单位px 
+                                    formatter: '{value}%',
+                                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE 
+                                        fontSize: 13,
+                                        color: '#FFFFFF',
+                                        bottom: 0
+                                    }
+
+                                },
+                            },
+
+                            {
+                                name: data[3].name,
+                                data: [
+                                    {
+                                        value: data[3].value,
+                                        name: data[3].name,
+                                    },
+                                ],
+                                center: ['85.8%','25%'],    // 默认全局居中
+
+                                type: 'gauge',
+                                radius: "45%",
+                                axisLine: {            // 坐标轴线
+                                    lineStyle: {       // 属性lineStyle控制线条样式
+                                        color: [
+                                            [0.2,'#42E4FB'],[0.8,'#387EF7'],[1,'#EF4E4E']
+                                        ],
+                                        width: 6,
+                                    }
+                                },
+                                axisLabel: {            // 坐标轴小标记 
+                                    color: '#42E4FB',
+                                    fontSize: 8
+                                },
+                                axisTick: {            // 坐标轴小标记
+                                    length: 8,        // 属性length控制线长
+                                    lineStyle: {       // 属性lineStyle控制线条样式
+                                        color: 'auto',
+                                        shadowColor: '#fff', //默认透明 ,
+                                        fontSize: 8
+                                    }
+                                },
+                                splitLine: {           // 分隔线
+                                    show: false,
+                                    length: 10,         // 属性length控制线长
+                                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                                        width: 1,
+                                        color: '#fff'
+                                    }
+                                },
+
+                                pointer: {           // 分隔线
+                                    shadowColor: '#3386D9', //默认透明
+                                    shadowBlur: 5,
+                                    length: "50%",
+                                    width: 3
+                                },
+                                title: {
+                                    offsetCenter: ["0%","95%"],       // x, y，单位px 
+                                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                                        fontWeight: 'bolder',
+                                        fontSize: 10,
+                                        color: '#A6CAF3',
+                                        bottom: 0
+                                    }
+                                },
+                                detail: {
+                                    offsetCenter: ["0%","65%"],       // x, y，单位px 
+                                    formatter: '{value}%',
+                                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE 
+                                        fontSize: 13,
+                                        color: '#FFFFFF',
+                                        bottom: 0
+                                    }
+
+                                },
+                            },
+
+                            {
+                                name: data[4].name,
+                                data: [
+                                    {
+                                        value: data[4].value,
+                                        name: data[4].name,
+                                    },
+                                ],
+                                center: ['14.5%','75%'],    // 默认全局居 
+                                type: 'gauge',
+                                radius: "45%",
+                                axisLine: {            // 坐标轴线
+                                    lineStyle: {       // 属性lineStyle控制线条样式
+                                        color: [
+                                            [0.2,'#42E4FB'],[0.8,'#387EF7'],[1,'#EF4E4E']
+                                        ],
+                                        width: 6,
+                                    }
+                                },
+                                axisLabel: {            // 坐标轴小标记 
+                                    color: '#42E4FB',
+                                    fontSize: 8
+                                },
+                                axisTick: {            // 坐标轴小标记
+                                    length: 8,        // 属性length控制线长
+                                    lineStyle: {       // 属性lineStyle控制线条样式
+                                        color: 'auto',
+                                        shadowColor: '#fff', //默认透明 ,
+                                        fontSize: 8
+                                    }
+                                },
+                                splitLine: {           // 分隔线
+                                    show: false,
+                                    length: 10,         // 属性length控制线长
+                                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                                        width: 1,
+                                        color: '#fff'
+                                    }
+                                },
+
+                                pointer: {           // 分隔线
+                                    shadowColor: '#3386D9', //默认透明
+                                    shadowBlur: 5,
+                                    length: "50%",
+                                    width: 3
+                                },
+                                title: {
+                                    offsetCenter: ["0%","95%"],       // x, y，单位px 
+                                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                                        fontWeight: 'bolder',
+                                        fontSize: 10,
+                                        color: '#A6CAF3',
+                                        bottom: 0
+                                    }
+                                },
+                                detail: {
+                                    offsetCenter: ["0%","65%"],       // x, y，单位px 
+                                    formatter: '{value}%',
+                                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE 
+                                        fontSize: 13,
+                                        color: '#FFFFFF',
+                                        bottom: 0
+                                    }
+
+                                },
+                            },
+
+                            {
+
+                                name: data[5].name,
+                                data: [
+                                    {
+                                        value: data[5].value,
+                                        name: data[5].name,
+                                    },
+                                ],
+                                center: ['38%','75%'],    // 默认全局居中
+
+                                type: 'gauge',
+                                radius: "45%",
+                                axisLine: {            // 坐标轴线
+                                    lineStyle: {       // 属性lineStyle控制线条样式
+                                        color: [
+                                            [0.2,'#42E4FB'],[0.8,'#387EF7'],[1,'#EF4E4E']
+                                        ],
+                                        width: 6,
+                                    }
+                                },
+                                axisLabel: {            // 坐标轴小标记 
+                                    color: '#42E4FB',
+                                    fontSize: 8
+                                },
+                                axisTick: {            // 坐标轴小标记
+                                    length: 8,        // 属性length控制线长
+                                    lineStyle: {       // 属性lineStyle控制线条样式
+                                        color: 'auto',
+                                        shadowColor: '#fff', //默认透明 ,
+                                        fontSize: 8
+                                    }
+                                },
+                                splitLine: {           // 分隔线
+                                    show: false,
+                                    length: 10,         // 属性length控制线长
+                                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                                        width: 1,
+                                        color: '#fff'
+                                    }
+                                },
+
+                                pointer: {           // 分隔线
+                                    shadowColor: '#3386D9', //默认透明
+                                    shadowBlur: 5,
+                                    length: "50%",
+                                    width: 3
+                                },
+                                title: {
+                                    offsetCenter: ["0%","95%"],       // x, y，单位px 
+                                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                                        fontWeight: 'bolder',
+                                        fontSize: 10,
+                                        color: '#A6CAF3',
+                                        bottom: 0
+                                    }
+                                },
+                                detail: {
+                                    offsetCenter: ["0%","65%"],       // x, y，单位px 
+                                    formatter: '{value}%',
+                                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE 
+                                        fontSize: 13,
+                                        color: '#FFFFFF',
+                                        bottom: 0
+                                    }
+
+                                },
+                            },
+
+                            {
+                                name: data[6].name,
+                                data: [
+                                    {
+                                        value: data[6].value,
+                                        name: data[6].name,
+                                    },
+                                ],
+                                center: ['62%','75%'],    // 默认全局居中
+
+                                type: 'gauge',
+                                radius: "45%",
+                                axisLine: {            // 坐标轴线
+                                    lineStyle: {       // 属性lineStyle控制线条样式
+                                        color: [
+                                            [0.2,'#42E4FB'],[0.8,'#387EF7'],[1,'#EF4E4E']
+                                        ],
+                                        width: 6,
+                                    }
+                                },
+                                axisLabel: {            // 坐标轴小标记 
+                                    color: '#42E4FB',
+                                    fontSize: 8
+                                },
+                                axisTick: {            // 坐标轴小标记
+                                    length: 8,        // 属性length控制线长
+                                    lineStyle: {       // 属性lineStyle控制线条样式
+                                        color: 'auto',
+                                        shadowColor: '#fff', //默认透明 ,
+                                        fontSize: 8
+                                    }
+                                },
+                                splitLine: {           // 分隔线
+                                    show: false,
+                                    length: 10,         // 属性length控制线长
+                                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                                        width: 1,
+                                        color: '#fff'
+                                    }
+                                },
+
+                                pointer: {           // 分隔线
+                                    shadowColor: '#3386D9', //默认透明
+                                    shadowBlur: 5,
+                                    length: "50%",
+                                    width: 3
+                                },
+                                title: {
+                                    offsetCenter: ["0%","95%"],       // x, y，单位px 
+                                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                                        fontWeight: 'bolder',
+                                        fontSize: 10,
+                                        color: '#A6CAF3',
+                                        bottom: 0
+                                    }
+                                },
+                                detail: {
+                                    offsetCenter: ["0%","65%"],       // x, y，单位px 
+                                    formatter: '{value}%',
+                                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE 
+                                        fontSize: 13,
+                                        color: '#FFFFFF',
+                                        bottom: 0
+                                    }
+
+                                },
+                            },
+
+                            {
+                                name: data[7].name,
+                                data: [
+                                    {
+                                        value: data[7].value,
+                                        name: data[7].name,
+                                    },
+                                ],
+                                center: ['86%','75%'],    // 默认全局居中
+
+                                type: 'gauge',
+                                radius: "45%",
+                                axisLine: {            // 坐标轴线
+                                    lineStyle: {       // 属性lineStyle控制线条样式
+                                        color: [
+                                            [0.2,'#42E4FB'],[0.8,'#387EF7'],[1,'#EF4E4E']
+                                        ],
+                                        width: 6,
+                                    }
+                                },
+                                axisLabel: {            // 坐标轴小标记 
+                                    color: '#42E4FB',
+                                    fontSize: 8
+                                },
+                                axisTick: {            // 坐标轴小标记
+                                    length: 8,        // 属性length控制线长
+                                    lineStyle: {       // 属性lineStyle控制线条样式
+                                        color: 'auto',
+                                        shadowColor: '#fff', //默认透明 ,
+                                        fontSize: 8
+                                    }
+                                },
+                                splitLine: {           // 分隔线
+                                    show: false,
+                                    length: 10,         // 属性length控制线长
+                                    lineStyle: {       // 属性lineStyle（详见lineStyle）控制线条样式
+                                        width: 1,
+                                        color: '#fff'
+                                    }
+                                },
+
+                                pointer: {           // 分隔线
+                                    shadowColor: '#3386D9', //默认透明
+                                    shadowBlur: 5,
+                                    length: "50%",
+                                    width: 3
+                                },
+                                title: {
+                                    offsetCenter: ["0%","95%"],       // x, y，单位px 
+                                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                                        fontWeight: 'bolder',
+                                        fontSize: 10,
+                                        color: '#A6CAF3',
+                                        bottom: 0
+                                    }
+                                },
+                                detail: {
+                                    offsetCenter: ["0%","65%"],       // x, y，单位px 
+                                    formatter: '{value}%',
+                                    textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE 
+                                        fontSize: 13,
+                                        color: '#FFFFFF',
+                                        bottom: 0
+                                    }
+
+                                },
+                            },
+
+                        ]
+                    };
+
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init($('.block-seven-eImg')[0]);
+
+                    //不断递归第七块数据循环不断显示各个页数据
+                    var index = 0;
+                    setInterval(function (param) {
+                        index = index + 1;
+                        var oldSeries = option.series;
+                        if (index >= state.blockSeven.length) {
+                            index = 0;
+                        }
+                        var _data = state.blockSeven[index];
+
+                        //创造出新的series 数据
+                        var series = [];
+                        for (var i = 0; i < _data.length; i++) {
+                            var newQuan = _data[i];
+                            newQuan.name = _data[i].name;
+                            newQuan.data = [{
+                                value: _data[i].value,
+                                name: _data[i].name,
+                            }];
+                            series.push(newQuan)
+                        }
+                        option.series = series;
+                        myChart.setOption(option);
+                    },10 * 1000);
+
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                    state.charts.seven = myChart;
+                }
+
+
+
+
+            })
+        </script>
+    </body>
+
+</html>
