@@ -118,12 +118,12 @@
                             {
                                 name: "定子组立",
                                 plan: 20, //计划
-                                over: 5//已完成
+                                over: 6//已完成
                             },
                             {
                                 name: "转子组立",
-                                plan: 20, //计划
-                                over: 5//已完成
+                                plan: 40, //计划
+                                over: 15//已完成
                             },
                             {
                                 name: "涂胶",
@@ -132,23 +132,58 @@
                             },
                             {
                                 name: "机壳组立",
-                                plan: 20, //计划
-                                over: 5//已完成
-                            }
+                                plan: 90, //计划
+                                over: 50//已完成
+                            },
+                            {
+                                name: "机壳1",
+                                plan: 100, //计划
+                                over: 60//已完成
+                            },
+                            // {
+                            //     name: "机壳2",
+                            //     plan: 90, //计划
+                            //     over: 50//已完成
+                            // },
+                            // {
+                            //     name: "机壳3",
+                            //     plan: 20, //计划
+                            //     over: 5//已完成
+                            // },
+                            // {
+                            //     name: "机壳4",
+                            //     plan: 30, //计划
+                            //     over: 40//已完成
+                            // },
+                            // {
+                            //     name: "机壳5",
+                            //     plan: 70, //计划
+                            //     over: 35//已完成
+                            // },
+                            // {
+                            //     name: "机壳6",
+                            //     plan: 120, //计划
+                            //     over: 80//已完成
+                            // },
+                            // {
+                            //     name: "机壳7",
+                            //     plan: 20, //计划
+                            //     over: 5//已完成
+                            // }
                         ]
                     },
 
                     //第三块数据
                     blockThree: [
                         {
-                            name: "定子组立",
+                            name: "定子组1",
                             data1: 30, //计划数量
                             data2: 8, //生产合格数
                             data3: 35, //合格比例
                             data4: 25, //质检合格数量
                         },
                         {
-                            name: "转子组立",
+                            name: "转子2",
                             data1: 30, //计划数量
                             data2: 8, //生产合格数
                             data3: 40, //合格比例
@@ -162,12 +197,40 @@
                             data4: 20, //质检合格数量
                         },
                         {
-                            name: "机壳组立",
+                            name: "机壳组立1",
                             data1: 30, //计划数量
                             data2: 8, //生产合格数
                             data3: 40, //合格比例
-                            data4: 20, //质检合格数量
-                        }
+                            data4: 10, //质检合格数量
+                        },
+                        {
+                            name: "机壳组立2",
+                            data1: 30, //计划数量
+                            data2: 8, //生产合格数
+                            data3: 40, //合格比例
+                            data4: 5, //质检合格数量
+                        },
+                        // {
+                        //     name: "机壳组立3",
+                        //     data1: 30, //计划数量
+                        //     data2: 8, //生产合格数
+                        //     data3: 40, //合格比例
+                        //     data4: 10, //质检合格数量
+                        // },
+                        // {
+                        //     name: "机壳组立4",
+                        //     data1: 30, //计划数量
+                        //     data2: 8, //生产合格数
+                        //     data3: 10, //合格比例
+                        //     data4: 20, //质检合格数量
+                        // },
+                        // {
+                        //     name: "机壳组立5",
+                        //     data1: 30, //计划数量
+                        //     data2: 8, //生产合格数
+                        //     data3: 40, //合格比例
+                        //     data4: 20, //质检合格数量
+                        // }
                     ],
 
                     //第四块数据
@@ -193,22 +256,47 @@
                     //第五块数据
                     blockFive: [
                         {
-                            name: "特种泵",
+                            name: "特种泵1",
                             data1: 20,
                             data2: 10
                         },
                         {
-                            name: "磁力泵",
+                            name: "磁力泵2",
                             data1: 20,
                             data2: 10
                         },
                         {
-                            name: "屏蔽泵",
+                            name: "屏蔽泵3",
                             data1: 20,
                             data2: 10
                         },
                         {
-                            name: "离心泵",
+                            name: "离心泵4",
+                            data1: 20,
+                            data2: 10
+                        },
+                        {
+                            name: "离心泵5",
+                            data1: 20,
+                            data2: 10
+                        },
+                        {
+                            name: "离心泵6",
+                            data1: 20,
+                            data2: 10
+                        },
+                        {
+                            name: "离心泵7",
+                            data1: 20,
+                            data2: 10
+                        },
+                        {
+                            name: "离心泵8",
+                            data1: 20,
+                            data2: 10
+                        },
+                        {
+                            name: "离心泵9",
                             data1: 20,
                             data2: 10
                         }
@@ -228,6 +316,11 @@
                         },
                         {
                             name: "屏蔽泵",
+                            data1: 150,
+                            data2: 100
+                        },
+                        {
+                            name: "离心泵",
                             data1: 150,
                             data2: 100
                         },
@@ -385,11 +478,56 @@
                     var data1 = [];
                     var data2 = [];
 
-                    for (var i = 0; i < data.length; i++) {
-                        xLabel.push(data[i].name);
-                        data1.push(data[i].plan);
-                        data2.push(data[i].over);
+                    // -----2020.1.7 s
+                    //每页显示的数据信息
+                    var showItemNum = 4; //每次显示4个柱子
+
+                    var curShowItemNum = 4; //当前显示的索引 
+                    var _data = [].concat(data);
+                    var showData = _data.splice(0,showItemNum);
+
+                    //设置数据列名字 和 数据列数据的函数
+                    var getData = function (data) {
+                        //置空数据
+                        xLabel = [];
+                        data1 = [];
+                        data2 = [];
+
+                        for (var i = 0; i < data.length; i++) {
+                            xLabel.push(data[i].name);
+                            // dataValue.push(data[i].value);
+                            data1.push(data[i].plan);
+                            data2.push(data[i].over);
+                        }
+                        curShowItemNum += 1;
                     }
+
+                    //不断叠加
+                    setInterval(function () {
+                        if (curShowItemNum > data.length) {
+                            curShowItemNum = 4;
+                        }
+
+                        var _data = [].concat(data);
+                        // console.log('显示范围:', curShowItemNum - showItemNum, curShowItemNum)
+                        showData = _data.splice(curShowItemNum - showItemNum,showItemNum)
+                        getData(showData);
+                        option.xAxis[0].data = xLabel;
+                        option.series[0].data = data1;
+                        option.series[1].data = data2;
+                        myChart.setOption(option);
+
+                    },3000);
+                    getData(showData);
+                    // -----2020.1.7 e
+
+                    // -----2020.1.7 s
+                    // for (var i = 0; i < data.length; i++) {
+                    //     xLabel.push(data[i].name);
+                    //     data1.push(data[i].plan);
+                    //     data2.push(data[i].over);
+                    // }
+                    // -----2020.1.7 e
 
                     var option = {
                         tooltip: {
@@ -476,7 +614,9 @@
                             {
                                 name: '计划数量',
                                 type: 'bar',
+                                // -----2020.1.7 s
                                 data: data1,
+                                // -----2020.1.7 e
                                 barWidth: $(window).width() * 0.025 / 2,//柱子宽度
                                 //barGap: 1, //柱子之间间距 
                                 zlevel: 2,
@@ -545,16 +685,63 @@
                     var data2 = [];
                     var data3 = [];
                     var data4 = [];
-                    //合格比例
-                    var qualifiedRatioValue = [];
 
-                    for (var i = 0; i < data.length; i++) {
-                        xLabel.push(data[i].name);
-                        data1.push(data[i].data1);
-                        data2.push(data[i].data2);
-                        data3.push(data[i].data3);
-                        data4.push(data[i].data4);
+                    // -----2020.1.7 s
+                    //每页显示的数据信息
+                    var showItemNum = 4; //每次显示4个柱子
+
+                    var curShowItemNum = 4; //当前显示的索引 
+                    var _data = [].concat(data);
+                    var showData = _data.splice(0,showItemNum);
+
+                    //设置数据列名字 和 数据列数据的函数
+                    var getData = function (data) {
+                        //置空数据
+                        xLabel = [];
+                        data1 = [];
+                        data2 = [];
+                        data3 = [];
+                        data4 = [];
+                        for (var i = 0; i < data.length; i++) {
+                            xLabel.push(data[i].name);
+                            data1.push(data[i].data1);
+                            data2.push(data[i].data2);
+                            data3.push(data[i].data3);
+                            data4.push(data[i].data4);
+                        }
+                        curShowItemNum += 1;
                     }
+
+                    //不断叠加
+                    setInterval(function () {
+                        if (curShowItemNum > data.length) {
+                            curShowItemNum = 4;
+                        }
+
+                        var _data = [].concat(data);
+                        // console.log('显示范围:', curShowItemNum - showItemNum, curShowItemNum)
+                        showData = _data.splice(curShowItemNum - showItemNum,showItemNum)
+                        getData(showData);
+                        option.xAxis[0].data = xLabel;
+                        option.series[0].data = data1;
+                        option.series[1].data = data2;
+                        option.series[2].data = data3;
+                        option.series[3].data = data4;
+                        myChart.setOption(option);
+
+                    },3000);
+                    getData(showData);
+                    // -----2020.1.7 e
+
+                    // -----2020.1.7 s
+                    // for (var i = 0; i < data.length; i++) {
+                    //     xLabel.push(data[i].name);
+                    //     data1.push(data[i].data1);
+                    //     data2.push(data[i].data2);
+                    //     data3.push(data[i].data3);
+                    //     data4.push(data[i].data4);
+                    // }
+                    // -----2020.1.7 e
 
                     var option = {
                         tooltip: {
@@ -704,6 +891,7 @@
                                 symbol: 'circle',
                                 // symbol: 'emptyCircle',
                                 symbolSize: 6,
+                                zlevel: 3,
                                 smooth: true,
                                 areaStyle: { //区域填充样式 
                                     normal: {
@@ -851,11 +1039,54 @@
                     var data1 = [];
                     var data2 = [];
 
-                    for (var i = 0; i < data.length; i++) {
-                        xLabel.push(data[i].name);
-                        data1.push(data[i].data1);
-                        data2.push(data[i].data2);
+                    // -----2020.1.7 s
+                    //每页显示的数据信息
+                    var showItemNum = 4; //每次显示4个柱子
+
+                    var curShowItemNum = 4; //当前显示的索引 
+                    var _data = [].concat(data);
+                    var showData = _data.splice(0,showItemNum);
+
+                    //设置数据列名字 和 数据列数据的函数
+                    var getData = function (data) {
+                        //置空数据
+                        xLabel = [];
+                        data1 = [];
+                        data2 = [];
+                        for (var i = 0; i < data.length; i++) {
+                            xLabel.push(data[i].name);
+                            data1.push(data[i].data1);
+                            data2.push(data[i].data2);
+                        }
+                        curShowItemNum += 1;
                     }
+
+                    //不断叠加
+                    setInterval(function () {
+                        if (curShowItemNum > data.length) {
+                            curShowItemNum = 4;
+                        }
+
+                        var _data = [].concat(data);
+                        // console.log('显示范围:', curShowItemNum - showItemNum, curShowItemNum)
+                        showData = _data.splice(curShowItemNum - showItemNum,showItemNum)
+                        getData(showData);
+                        option.yAxis[0].data = xLabel;
+                        option.series[0].data = data1;
+                        option.series[1].data = data2;
+                        myChart.setOption(option);
+
+                    },3000);
+                    getData(showData);
+                    // -----2020.1.7 e
+
+                    // -----2020.1.7 s
+                    // for (var i = 0; i < data.length; i++) {
+                    //     xLabel.push(data[i].name);
+                    //     data1.push(data[i].data1);
+                    //     data2.push(data[i].data2);
+                    // }
+                    // -----2020.1.7 e
 
                     var option = {
                         tooltip: {
@@ -1008,11 +1239,54 @@
                     var data1 = [];
                     var data2 = [];
 
-                    for (var i = 0; i < data.length; i++) {
-                        xLabel.push(data[i].name);
-                        data1.push(data[i].data1);
-                        data2.push(data[i].data2);
+                    // -----2020.1.7 s
+                    //每页显示的数据信息
+                    var showItemNum = 4; //每次显示4个柱子
+
+                    var curShowItemNum = 4; //当前显示的索引 
+                    var _data = [].concat(data);
+                    var showData = _data.splice(0,showItemNum);
+
+                    //设置数据列名字 和 数据列数据的函数
+                    var getData = function (data) {
+                        //置空数据
+                        xLabel = [];
+                        data1 = [];
+                        data2 = [];
+                        for (var i = 0; i < data.length; i++) {
+                            xLabel.push(data[i].name);
+                            data1.push(data[i].data1);
+                            data2.push(data[i].data2);
+                        }
+                        curShowItemNum += 1;
                     }
+
+                    //不断叠加
+                    setInterval(function () {
+                        if (curShowItemNum > data.length) {
+                            curShowItemNum = 4;
+                        }
+
+                        var _data = [].concat(data);
+                        // console.log('显示范围:', curShowItemNum - showItemNum, curShowItemNum)
+                        showData = _data.splice(curShowItemNum - showItemNum,showItemNum)
+                        getData(showData);
+                        option.yAxis[0].data = xLabel;
+                        option.series[0].data = data1;
+                        option.series[1].data = data2;
+                        myChart.setOption(option);
+
+                    },3000);
+                    getData(showData);
+                    // -----2020.1.7 e
+
+                    // -----2020.1.7 s
+                    // for (var i = 0; i < data.length; i++) {
+                    //     xLabel.push(data[i].name);
+                    //     data1.push(data[i].data1);
+                    //     data2.push(data[i].data2);
+                    // }
+                    // -----2020.1.7 e
 
                     var option = {
                         tooltip: {
