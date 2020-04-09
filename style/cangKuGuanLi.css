@@ -33,6 +33,11 @@
     color: #ef4e4e;
 }
 
+/* 2020.1.16 s */
+.yellow {
+    color: yellow;
+}
+/* 2020.1.16 e */
 .pt24 {
     padding-top: 24px;
 }
@@ -179,7 +184,12 @@ body {
 
 .table th, .table td {
     width: 25%;
-    padding: 6px 0px;
+    padding: 6px 0px; 
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    display: inline-block;
 }
 
 /* 块背景 */

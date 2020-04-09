@@ -35,8 +35,10 @@
                         <table class="table" cellpadding="0" cellspacing="0">
                             <tr class="theader">
                                 <th> 采购订单 </th>
-                                <th style="padding-left: 16px;"> 物料名称 </th>
-                                <th> 到货数量 </th>
+                                <!-- 2020.1.16 s-->
+                                <th style="padding-left: 16px;text-align: left;"> 物料名称 </th>
+                                <th style="padding-left: 16px;text-align: right;padding-right:6px;"> 到货数量 </th>
+                                <!-- 2020.1.16 e-->
                                 <th> 未验收数量 </th>
                             </tr>
                         </table>
@@ -62,7 +64,9 @@
                             <tr class="theader">
                                 <th> 生产订单 </th>
                                 <th style="padding-left: 16px;"> 出库工序 </th>
-                                <th> 物料名称 </th>
+                                <!-- 2020.1.16 s-->
+                                <th style="padding-left: 8px;text-align: left;"> 物料名称 </th>
+                                <!-- 2020.1.16 e-->
                                 <th> 未验收数量 </th>
                             </tr>
                         </table>
@@ -287,37 +291,37 @@
                     ruKuRenWuQingDan: [
                         {
                             purchaseOrder: "HOAHDJHKJG",
-                            nameOfMaterial: "物料start",
+                            nameOfMaterial: "物料start物料start物料start",
                             quantityOfIncomingGoods: "100",
                             uninspectedQuantity: "10",
                         },
                         {
                             purchaseOrder: "HOAHDJHKJG",
-                            nameOfMaterial: "物料A",
+                            nameOfMaterial: "物料A物料A物料A物料A物料A",
                             quantityOfIncomingGoods: "100",
                             uninspectedQuantity: "10",
                         },
                         {
                             purchaseOrder: "HOAHDJHKJG",
-                            nameOfMaterial: "物料A",
+                            nameOfMaterial: "物料A物料A物料A物料A物料A",
                             quantityOfIncomingGoods: "100",
                             uninspectedQuantity: "10",
                         },
                         {
                             purchaseOrder: "HOAHDJHKJG",
-                            nameOfMaterial: "物料A",
+                            nameOfMaterial: "物料A物料A物料A物料A物料A",
                             quantityOfIncomingGoods: "100",
                             uninspectedQuantity: "10",
                         },
                         {
                             purchaseOrder: "HOAHDJHKJG",
-                            nameOfMaterial: "物料A",
+                            nameOfMaterial: "物料A物料A物料A物料A物料A",
                             quantityOfIncomingGoods: "100",
                             uninspectedQuantity: "10",
                         },
                         {
                             purchaseOrder: "HOAHDJHKJG",
-                            nameOfMaterial: "物料A",
+                            nameOfMaterial: "物料A物料A物料A物料A物料A",
                             quantityOfIncomingGoods: "100",
                             uninspectedQuantity: "10",
                         },
@@ -351,43 +355,43 @@
                     chuKuRenWuQingDan: [
                         {
                             productionOrder: "HOAHDJHKJG",
-                            outboundProcess: "焊接start",
+                            outboundProcess: "焊接star焊接start焊接startt",
+                            quantityOfIncomingGoods: "焊接start焊接start焊接",
+                            uninspectedQuantity: "10",
+                        },
+                        {
+                            productionOrder: "HOAHDJHKJG",
+                            outboundProcess: "焊接star焊接start焊接startt",
                             quantityOfIncomingGoods: "100",
                             uninspectedQuantity: "10",
                         },
                         {
                             productionOrder: "HOAHDJHKJG",
-                            outboundProcess: "打孔",
+                            outboundProcess: "焊接star焊接start焊接startt",
                             quantityOfIncomingGoods: "100",
                             uninspectedQuantity: "10",
                         },
                         {
                             productionOrder: "HOAHDJHKJG",
-                            outboundProcess: "包装",
+                            outboundProcess: "焊接star焊接start焊接startt",
                             quantityOfIncomingGoods: "100",
                             uninspectedQuantity: "10",
                         },
                         {
                             productionOrder: "HOAHDJHKJG",
-                            outboundProcess: "切断",
+                            outboundProcess: "焊接star焊接start焊接startt",
                             quantityOfIncomingGoods: "100",
                             uninspectedQuantity: "10",
                         },
                         {
                             productionOrder: "HOAHDJHKJG",
-                            outboundProcess: "包装",
+                            outboundProcess: "焊接star焊接start焊接startt",
                             quantityOfIncomingGoods: "100",
                             uninspectedQuantity: "10",
                         },
                         {
                             productionOrder: "HOAHDJHKJG",
-                            outboundProcess: "包装",
-                            quantityOfIncomingGoods: "100",
-                            uninspectedQuantity: "10",
-                        },
-                        {
-                            productionOrder: "HOAHDJHKJG",
-                            outboundProcess: "包装",
+                            outboundProcess: "焊接star焊接start焊接startt",
                             quantityOfIncomingGoods: "100",
                             uninspectedQuantity: "10",
                         },
@@ -490,7 +494,7 @@
                         state[key] = data[key];
                     }
                 }
-  
+
                 //设置整体样式
                 setStyle();
                 $(window).resize(setStyle)
@@ -767,7 +771,7 @@
                     setInterval(function () {
                         if (curShowItemNum > data.length) {
                             curShowItemNum = 4;
-                        } 
+                        }
 
                         var _data = [].concat(data);
                         // console.log('显示范围:', curShowItemNum - showItemNum, curShowItemNum)
@@ -891,9 +895,13 @@
                         $.each(data,function (index,item) {
                             var $item = $(' <tr class="row ' + (index % 2 !== 0 ? "wbg" : "") + '">' +
                                 '<td class="blue"> ' + item.purchaseOrder + ' </td>' +
-                                '<td class="white">  ' + item.nameOfMaterial + '  </td>' +
-                                '<td class="qing">  ' + item.quantityOfIncomingGoods + ' </td>' +
-                                '<td class="red" style="text-align:right">  ' + item.uninspectedQuantity + ' </td>' +
+                                
+                                /* 2020.1.16 s */
+                                '<td class="white"  style="text-align:left;padding-left:6px;">  ' + item.nameOfMaterial + '  </td>' +
+                                '<td class="qing"   style="text-align:right;padding-right:6px;">  ' + item.quantityOfIncomingGoods + ' </td>' + 
+                                '<td class="yellow" style="text-align:right;padding-right:6px;">  ' + item.uninspectedQuantity + ' </td>' +
+                                /* 2020.1.16 e */
+
                                 '</tr>');
                             $dom.append($item);
                         });
@@ -930,9 +938,13 @@
                         $.each(data,function (index,item) {
                             var $item = $(' <tr class="row ' + (index % 2 !== 0 ? "wbg" : "") + '">' +
                                 '<td class="blue"> ' + item.productionOrder + ' </td>' +
-                                '<td class="white">  ' + item.outboundProcess + '  </td>' +
-                                '<td class="qing">  ' + item.quantityOfIncomingGoods + ' </td>' +
-                                '<td class="red" style="text-align:right">  ' + item.uninspectedQuantity + ' </td>' +
+                                '<td class="blue">  ' + item.outboundProcess + '  </td>' +
+                                
+                                /* 2020.1.16 s */
+                                '<td class="white"  style="text-align:left;padding-left:6px">  ' + item.quantityOfIncomingGoods + ' </td>' + 
+                                '<td class="yellow" style="text-align:right;padding-right:6px;">  ' + item.uninspectedQuantity + ' </td>' +
+                                /* 2020.1.16 e */
+
                                 '</tr>');
                             $dom.append($item);
                         });
@@ -982,7 +994,7 @@
                         countValue = [];
                         badnessValue = [];
                         qualifiedRatioValue = [];
-                        
+
                         for (var i = 0; i < data.length; i++) {
                             xLabel.push(data[i].name);
                             countValue.push(data[i].count);
@@ -996,7 +1008,7 @@
                     setInterval(function () {
                         if (curShowItemNum > data.length) {
                             curShowItemNum = 4;
-                        } 
+                        }
 
                         var _data = [].concat(data);
                         // console.log('显示范围:', curShowItemNum - showItemNum, curShowItemNum)

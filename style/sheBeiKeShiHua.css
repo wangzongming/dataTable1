@@ -94,7 +94,7 @@ body {
 }
 
 .sc-page .header {
-    background-image: url("../imgs/top-sc.png");
+    background-image: url("../sheBeiImg/top.png");
 }
 
 .header .time {
@@ -116,6 +116,8 @@ body {
     float: left;
     padding: 12px;
     margin: 1% 0.5%;
+    /* border: 1px solid rgba(255, 0, 0, 0.315); */
+    box-sizing: border-box;
 }
 
 .body .block.block-seven {
@@ -136,8 +138,8 @@ body {
     padding-left: 20%;
 }
 
-.ruKuRenWuQingDan .table .theader {
-    padding-top: 24px;
+.block-three-eImg .table .theader {
+    padding-top: 12px;
 }
 
 .table {
@@ -149,7 +151,11 @@ body {
 .table-content {
     /* overflow-y: scroll; */
     overflow: hidden;
-    height: 76%;
+    height: 50%;
+}
+
+.block-six-eImg.table-content {
+    height: 62%;
 }
 
 .wbg {
@@ -183,6 +189,7 @@ body {
 .table th, .table td {
     width: 25%;
     padding: 6px 0px;
+    /* border: 1px solid red; */
 }
 
 /* 块背景 */
@@ -201,6 +208,35 @@ body {
     -o-background-size: 100% 100%;
 }
 
+.block.block-one {
+    width: 49%;
+    background-image: url("../sheBeiImg/bg(1).png");
+    height: 65%;
+}
+
+.block.block-two {
+    width: 49%;
+    height: 40%;
+    background-image: url("../sheBeiImg/bg(4).png");
+}
+
+.block.block-three {
+    width: 49%;
+    height: 21%;
+    background-image: url("../sheBeiImg/bg(13).png");
+}
+
+.block.block-five, .block.block-four {
+    height: 26%;
+    background-image: url("../sheBeiImg/bg(2).png");
+}
+
+.block.block-six {
+    width: 49%;
+    height: 26%;
+    background-image: url("../sheBeiImg/bg(13).png");
+}
+
 .block-seven {
     background-image: url("../imgs/bg-sc-long.png");
     background-repeat: no-repeat;
@@ -215,157 +251,40 @@ body {
     -o-background-size: 100% 100%;
 }
 
-.block-two .titImg, .block-six .titImg, .block-five .titImg, .block-four .titImg, .block-three .titImg, .block-one .titImg {
-    /* border:1px solid red;  */
+.block-five .titImg, .block-four .titImg {
     width: 100%;
-    margin-top: -7%;
+    margin-top: -6%;
 }
 
-.block-seven .titImg {
-    width: 50%;
-    margin-top: -3.5%;
+.block-six .titImg, .block-two .titImg {
+    width: 100%;
+    margin-top: -3%;
 }
 
-.block-two .titImg img, .block-seven .titImg img, .block-six .titImg img, .block-five .titImg img, .block-four .titImg img, .block-three .titImg img, .block-one .titImg img {
+.block-three .titImg {
+    margin-top: -3.2%;
+}
+
+
+.block-two .titImg {
+    margin-top: -3.2%;
+}
+
+.block-two .titImg img, .block-six .titImg img, .block-five .titImg img,  .block-three .titImg img, .block-one .titImg img {
     width: 70%;
     margin-left: 18%;
 }
-
-.block-two {
-    position: relative;
+.block-four .titImg img{ 
+    width: 65%; margin-left: 18%;
 }
 
-.block-two .bg {
-    width: 100%;
-    height: 125%;
-    position: absolute;
-    top: -12%;
-    left: 0px;
-    background-image: url("../imgs/bg2.png");
-    background-repeat: no-repeat;
-    -ms-background-repeat: no-repeat;
-    -webkit-background-repeat: no-repeat;
-    -moz-background-repeat: no-repeat;
-    -o-background-repeat: no-repeat;
-    background-position: center;
-    -ms-background-position: center;
-    -webkit-background-position: center;
-    -moz-background-position: center;
-    -o-background-position: center;
-    background-size: auto 100%;
-    -webkit-background-size: auto 100%;
-    -ms-background-size: auto 100%;
-    -moz-background-size: auto 100%;
-    -o-background-size: auto 100%;
-    z-index: -1;
+body .block-six .titImg img, body .block-two .titImg img, .block-three .titImg img {
+    width: 35%;
+    margin-left: 10%;
 }
 
 .block-four {
     background-image: url("../imgs/bg1-h.png");
-}
-
-.block-one .row {
-    padding: 3px 12px;
-    height: 25%;
-}
-
-/* 2020.1.16   s */
-
-.block-one .row .col {
-    float: left;
-    color: #CBCBCB;
-    /* font-size: 19px; */
-    font-size: 1.2rem;
-    height: 100%;
-    box-sizing: border-box;
-    position: relative;
-    /* border: 1px solid red; */
-}
- 
-
- /* 2020.1.21   s */
-.block-one .row .col.icon {
-    width: 35%;
-    text-align: center;
-}
-
-.block-one .row .col.icon img {
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    top: 0px;
-    margin: auto;
-}
-
-.block-one .row .col.desc {
-    width: 35%; 
-}
-
-.block-one .row .col.desc div { 
-    width: 100%;
-    font-size: 1.5rem; 
-    position: absolute;
-    left: 5%;
-    right: 0px;
-    bottom: 0px;
-    top: 0px;
-    height: 1.8rem;
-    margin: auto;
-}
-
-.block-one .row .col.val { 
-    width: 16%;
-    box-sizing: border-box;
-    position: relative;
-    text-align: right;
-}
-/* 2020.1.21   e */
-
-.block-one .row .col .value {
-    float: left;
-    color: #02BDD4;
-    font-size: 32px;
-    width: 100%;
-    padding-right: 18px;
-    box-sizing: border-box;
-
-    position: absolute;
-    /* left: 0px; */
-    right: 0px;
-    bottom: 0px;
-    top: 0px;
-    height: 1.8rem;
-    margin: auto;
-    /* text-align: center; */
-}
-
-.block-one .row .col .unit {
-    color: #02BDD4;
-    font-size: 13px;
-    display: inline-block;
-    height: 100%;
-    display: table-cell;
-    vertical-align: bottom;
-    position: absolute;
-    /* bottom: 0px; */
-    top: 52%;
-    right: 0px;
-    /* left: 0px; */
-    height: 22px; 
-    width: 75%;
-    /* border:1px solid red; */
-}
-
-/* 2020.1.16   e */
-
-.otherInfo {
-    color: #50D57F;
-    font-size: 10px;
-    position: absolute;
-    top: 0px;
-    line-height: 1.5;
-    padding-left: 6%;
 }
 
 .centerbg {
@@ -384,11 +303,11 @@ body {
     height: 100%;
 }
 
-.block-seven {
+.block-two {
     position: relative;
 }
 
-.block-seven .quanBgContainer {
+.block-two .quanBgContainer {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -397,17 +316,18 @@ body {
     padding: 16px 26px;
 }
 
-.block-seven .quanBgContainer .quanBg {
+.block-two .quanBgContainer .quanBg {
     /* border: 1px solid red; */
     width: 25%;
-    height: 50%;
+    height: 40%;
     float: left;
     text-align: center;
     position: relative;
-    margin-bottom: 1%;
+    margin-bottom: 2.5%;
+    margin-top: 1.5%;
 }
 
-.block-seven .quanBgContainer .quanBg img {
+.block-two .quanBgContainer .quanBg img {
     /* width: 110%; */
     height: 120%;
     position: absolute;
@@ -418,4 +338,97 @@ body {
     right: 0px;
     top: -4%;
     margin: auto;
+}
+
+.block-one .eImg {
+    padding: 12px;
+}
+
+.block-one .top {
+    /* border: 1px solid red; */
+    padding-bottom: 6px;
+}
+
+.block-one .top .top-item {
+    float: left;
+    width: 24%;
+    box-sizing: border-box;
+    padding: 6px 0px;
+    padding-left: 48px;
+}
+
+.block-one .top .top-item:nth-of-type(1) {
+    width: 27%;
+}
+
+.block-one .top .top-item .text {
+    font-size: 11px;
+    color: #CBCBCB;
+    /* line-height: 0.8; */
+    display: inline-block;
+    height: 100%;
+    box-sizing: border-box;
+    transform: translateY(-5px);
+    -webkit-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -o-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+}
+
+.block-one .top .top-item .num {
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.block-one .top .top-item .unit {
+    font-size: 12px;
+}
+
+.block-one .top .top-item.count {
+    background: url("../sheBeiImg/icon.png")no-repeat;
+    background-size: 40px;
+    background-position: center left;
+}
+
+.block-one .top .top-item.count .num, .block-one .top .top-item.count .unit {
+    color: #02BDD4;
+}
+
+.block-one .top .top-item.ing {
+    background: url("../sheBeiImg/icon1.png")no-repeat;
+    background-size: 40px;
+    background-position: center left;
+}
+
+.block-one .top .top-item.ing .num, .block-one .top .top-item.ing .unit {
+    color: #50D57F;
+}
+
+.block-one .top .top-item.stop {
+    background: url("../sheBeiImg/icon2.png")no-repeat;
+    background-size: 40px;
+    background-position: center left;
+}
+
+.block-one .top .top-item.stop .num, .block-one .top .top-item.stop .unit {
+    color: #EF4E4E;
+}
+
+.block-one .top .top-item.repair {
+    background: url("../sheBeiImg/icon3.png")no-repeat;
+    background-size: 40px;
+    background-position: center left;
+}
+
+.block-one .top .top-item.repair .num, .block-one .top .top-item.repair .unit {
+    color: #FFEA00;
+}
+
+.block-one .img {
+    height: 90%;
+}
+
+.block-one .img img {
+    width: 100%;
+    height: 100%;
 }
